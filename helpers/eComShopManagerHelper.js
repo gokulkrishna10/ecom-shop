@@ -1,13 +1,5 @@
 const utils = require("../customnodemodules/util_node_module/utils")
 
-exports.createTaskMapper = function (req) {
-    let taskMapperObject = {}
-
-    taskMapperObject.task_label = req.body.label
-    if (req.body.description) taskMapperObject.task_description = req.body.description
-
-    return taskMapperObject
-}
 
 exports.updateTaskMapper = function (req) {
     let updateTaskMapper = {}

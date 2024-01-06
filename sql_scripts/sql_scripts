@@ -1,9 +1,0 @@
-CREATE TABLE `sql5670865`.`task-manager` (
-    `task_id` INT NOT NULL AUTO_INCREMENT,
-    `task_label` VARCHAR(100) NOT NULL,
-    `task_description` VARCHAR(500) NULL DEFAULT NULL,
-    `created_date` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    `modified_date` DATETIME NULL DEFAULT NULL,
-    `status` VARCHAR(45) NULL DEFAULT 'PENDING',
-    PRIMARY KEY (`task_id`)
-) ENGINE = InnoDB;

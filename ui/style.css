@@ -1,145 +1,237 @@
-body, html {
-    height: 100%;
+body {
+    font-family: Arial, sans-serif;
     margin: 0;
-    font-family: 'Arial', sans-serif;
-    background-color: #e9ecef;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.container {
-    width: 90%;
-    max-width: 600px;
-    margin: auto;
-    padding: 20px;
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    text-align: center;
-}
-
-h1 {
-    color: #333;
-    margin-bottom: 30px;
-}
-
-.input-field,
-.btn {
-    width: 100%;
-    padding: 15px;
-    border: 2px solid #ced4da;
-    border-radius: 4px;
-    margin-bottom: 15px;
     box-sizing: border-box;
+    min-height: 100vh; /* Ensure the body is at least the height of the viewport */
+    background: url('img_dir/wallpaperflare.com_wallpaper (10).jpg') no-repeat center center fixed;
+    background-size: cover; /* Cover the entire viewport */
+    /* Height of the header */
+    padding: 70px 0 0;
 }
 
-.input-field:focus,
-.btn:hover,
-.btn:focus {
-    outline: none;
-    border-color: #80bdff;
-    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, .25);
-}
-
-.btn {
-    background-color: #007bff;
+header, footer {
+    background-color: rgba(51, 51, 51, 0.8); /* Semi-transparent background */
     color: white;
-    font-size: 16px;
-    transition: background-color 0.3s ease, box-shadow 0.3s ease;
-    cursor: pointer;
-}
-
-.btn:hover {
-    background-color: #0056b3;
-}
-
-.btn.load-tasks-btn {
-    background-color: #28a745;
-    box-shadow: none;
-}
-
-.btn.load-tasks-btn:hover {
-    background-color: #218838;
-}
-
-.task-display-area {
-    text-align: center;
-}
-
-.task-list {
-    padding: 0;
-    margin-top: 20px;
+    padding: 20px 0;
     display: flex;
-    flex-direction: column;
+    justify-content: space-between;
     align-items: center;
+    position: sticky; /* Make header and footer stick to the top and bottom */
+    top: 0; /* For header */
+    z-index: 10; /* Ensure they are above other content */
 }
 
-.task-list li {
-    background: #fff;
-    border-radius: 10px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    margin-bottom: 10px;
-    padding: 10px;
-    width: calc(100% - 40px);
-    max-width: 400px;
+header {
+    /* Alternatively, for a subtler effect, you can use a very light translucent background */
+    /* background-color: rgba(255, 255, 255, 0.05); */ /* Very light white translucent background */
+    background-color: transparent; /* Make the header fully transparent */
+    color: white;
+    padding: 1em;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: fixed; /* Changed from sticky to fixed */
+    top: 0;
+    width: 100%; /* Ensure the header spans the full width */
+    box-shadow: none; /* Remove the shadow for a cleaner look */
+    z-index: 1000; /* High z-index to ensure header is above all other content */
+}
+
+/*header .logo {*/
+/*    font-size: 24px;*/
+/*    margin-left: 10px;*/
+/*}*/
+
+.logo a, .cart-icon a, nav ul li a {
+    color: white;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.logo a:hover, .cart-icon a:hover, nav ul li a:hover {
+    color: #ddd; /* Slight highlight effect on hover */
+}
+
+.logo a {
+    cursor: pointer; /* Shows the pointer hand icon when you hover over the link */
+}
+
+.logo img {
+    display: block; /* This can help ensure the image is clickable */
+    height: 50px; /* Adjust the height as needed */
+    width: auto; /* Maintain the aspect ratio of the image */
+}
+
+
+
+nav ul {
+    list-style-type: none;
+    padding: 0;
+    display: flex;
+    margin: 0;
+}
+
+nav ul li {
+    margin: 0 20px; /* Increase margin for better spacing */
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+}
+
+
+
+.cart-icon {
+    font-size: 1.8em; /* Larger cart icon */
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 16px;
+    color: white; /* Set the color of the icon */
+    text-decoration: none;
+    transition: color 0.3s ease;
+    background: none; /* Remove any background that might be causing shading */
+    box-shadow: none; /* Remove any box shadow */
+    text-shadow: none; /* Remove any text shadow */
+    position: relative; /* Needed for absolute positioning of the item count */
 }
 
-.task-content {
-    flex-grow: 1;
+.cart-icon a {
+    color: white;
+    text-decoration: none;
+    font-size: 1.3em; /*!* Adjust the size of the icon *!*/
+    padding: 0.5em;
+    /*display: flex;*/
+    align-items: center; /* Align the text and icon vertically */
+    position: relative; /* Position relative for absolute positioning of children */
+    display: inline-flex; /* Use inline-flex to keep the link inline */
+    justify-content: center; /* Center badge horizontally */
+}
+
+.cart-icon .fa-shopping-cart {
+    /*margin-right: 5px; !* Spacing between icon and text *!*/
+    margin-right: 20px; /* Spacing between icon and text */
+    /* Solid style icon but with a 'hollow' appearance */
+    -webkit-text-stroke: 2px white; /* Creates an outline effect with the stroke */
+    color: transparent; /* Makes the inside of the icon transparent */
+}
+
+.cart-icon a:hover {
+    color: #ddd; /* Slight highlight effect on hover */
+    transition: color 0.3s ease;
+}
+
+.fas {
+    font-weight: 900; /* FontAwesome solid style */
+}
+
+
+
+footer {
+    color: white;
     text-align: center;
-    margin: 0 30px;
+    padding: 20px 0;
+    position: relative; /* Keep the footer at the bottom of the viewport */
+    margin-top: auto; /* Ensures that the footer is at the bottom */
+    bottom: 0;
+    width: 100%; /* Ensure the footer spans the full width */
+    background-color: transparent; /* Make the footer completely transparent */
+    z-index: 1000; /* Ensure the footer is above all other content */
+    display: flex; /* Use flexbox to align the content */
+    justify-content: center; /* Centers the content horizontally */
+    align-items: center; /* Centers the content vertically */
 }
 
-.mark-done-btn, .delete-btn {
-    background: none;
-    border: none;
-    cursor: pointer;
-    font-size: 1.5rem;
-    margin: 0 10px;
+
+/* Adjust the padding of the main content so it doesn't get overlapped by the fixed footer */
+main {
+    padding-top: 80px; /* Adjust based on the actual height of your header */
+    padding-bottom: 70px; /* Adjust based on the actual height of your footer */
 }
 
-.mark-done-btn {
-    color: #28a745;
+
+
+
+.product-categories {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Adapts number of columns based on available width */
+    gap: 20px;
+    padding: 20px;
+    height: calc(100vh - 160px); /* Adjust height calculation based on header and footer size */
+    align-content: stretch; /* Stretch the grid items vertically */
 }
 
-.delete-btn {
-    color: #dc3545;
+.category-card {
+    background-color: #f5f5f5;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 20px;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex; /* Makes it a flex container */
+    align-items: center; /* Centers the link vertically */
+    justify-content: center; /* Centers the link horizontally */
+    background-size: cover; /* Cover the entire area of the card */
+    background-position: center; /* Center the image within the card */
+    position: relative; /* Position relative to allow absolute positioning inside */
+    color: white; /* White text for better contrast */
+    overflow: hidden;
 }
 
-.mark-done-btn:hover,
-.delete-btn:hover {
-    opacity: 0.7;
+.category-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: rgba(0, 0, 0, 0.6); /* Increase the overlay opacity slightly */
+    z-index: 1;
 }
 
-.completed {
-    text-decoration: line-through;
-    color: #6c757d;
+.category-card a {
+    position: relative;
+    z-index: 2;
+    color: #fff; /* Ensures text is white */
+    font-size: 1.8em; /* Slightly larger font size */
+    font-weight: bold; /* Bolder font for better legibility */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8); /* Text shadow for better visibility */
+    text-decoration: none;
+    padding: 20px;
+    text-align: center;
+    display: block; /* Allows padding and center alignment to take effect */
 }
 
-.COMPLETED {
-    text-decoration: line-through;
-    opacity: 0.6; /* Optional: to visually differentiate completed tasks */
+.category-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
 }
 
-.toast {
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    padding: 10px 20px;
-    background-color: #333;
-    color: #fff;
-    border-radius: 5px;
-    opacity: 0;
-    transition: opacity 0.5s ease-in-out;
-    z-index: 1000;
-    white-space: nowrap;
-}
 
-.toast.visible {
-    opacity: 1;
+
+@media (max-width: 600px) {
+    .product-categories {
+        grid-template-columns: 1fr; /* One column layout on smaller screens */
+    }
+
+    .category-card {
+        padding: 20px; /* Less padding on smaller screens */
+    }
+
+    .category-card a {
+        font-size: 1.4em; /* Smaller font size for smaller screens */
+        padding: 10px;
+    }
+
+    header, footer {
+        padding: 10px 0;
+    }
+
+    nav ul li {
+        margin: 0 10px; /* Smaller margin for smaller screens */
+    }
+
+    .cart-icon {
+        font-size: 1.5em; /* Smaller cart icon for smaller screens */
+    }
 }

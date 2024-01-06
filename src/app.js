@@ -8,7 +8,7 @@ const express = require("express"),
 
 var ErrorMod = require('../customnodemodules/error_node_module/errors');
 var customError = new ErrorMod();
-const taskValidator = require('../validation/tasksValidation')
+const eComShopValidator = require('../validation/eComShopValidation')
 
 
 app.use(bodyParser.urlencoded({extended: true}));
@@ -46,16 +46,7 @@ router.all("*", function (req, res, next) {
 });
 
 //create a task
-router.post('/task', taskValidator.validateCreateTask, routes.createTask)
-
-// get all tasks
-router.get('/tasks', routes.getAllTasks)
-
-// delete a task
-router.delete('/task/:task_id', taskValidator.validateDeleteTask, routes.deleteTask)
-
-// update a task
-router.put('/task/:task_id', taskValidator.validateUpdateTask, routes.updateTask)
+router.post('/task', eComShopValidator.validateCreateTask, routes.createTask)
 
 
 router.all('/*', function (req, res) {

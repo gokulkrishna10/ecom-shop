@@ -3,29 +3,72 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Task Manager</title>
+    <title>E-Shop</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 </head>
 <body>
-<div class="container">
-    <h1>Task Manager</h1>
-
-    <!-- Task Creation Form -->
-    <div class="task-form">
-        <input type="text" id="taskLabelInput" class="input-field" placeholder="Enter task label" required>
-        <textarea id="taskDescriptionInput" class="input-field"
-                  placeholder="Enter task description (optional)"></textarea>
-        <button onclick="createTask()" class="btn add-task-btn">Add Task</button>
+<header>
+    <div class="logo">
+        <a href="index.html">
+            <img src="img_dir/DALL·E.png" alt="E-Shop Logo" style="height: 50px;"> <!-- Update height as needed -->
+        </a>
     </div>
-    <div class="task-display-area">
-        <!-- Load Tasks Button -->
-        <button onclick="loadTasks()" class="btn load-tasks-btn">Load Tasks</button>
-        <!-- Task List -->
-        <ul id="taskList" class="task-list">
+    <nav>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="products.html">Products</a></li>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="contact.html">Contact</a></li>
         </ul>
+    </nav>
+    <div class="cart-icon">
+        <a href="cart.html">
+            <i class="fas fa-shopping-cart"></i>
+        </a>
     </div>
-</div>
+</header>
 
-<script src="script.js"></script>
+<main>
+    <section class="product-categories">
+        <div class="category-card" style="background-image: url('img_dir/0_k0qUirzIIVNtxj6S.webp');">
+            <a href="featured.html">Featured Products</a>
+        </div>
+        <div class="category-card" style="background-image: url('img_dir/ady-teenagerinro-sQ0xXxQdfeY-unsplash.jpg');">
+            <a href="electronics.html">Electronics</a>
+        </div>
+        <div class="category-card" style="background-image: url('img_dir/ring-1671094_1280.jpg');">
+            <a href="accessories.html">Accessories</a>
+        </div>
+        <div class="category-card" style="background-image: url('img_dir/Suit-Jacket-Details.jpg');">
+            <a href="men.html">Men</a>
+        </div>
+        <div class="category-card"
+             style="background-image: url('img_dir/md__yana_stotskaya_by_alexkphoto_dby7x9y-fullview.jpg');">
+            <a href="women.html">Women</a>
+        </div>
+        <!-- Additional Categories -->
+        <div class="category-card" style="background-image: url('img_dir/children-817368_960_720.jpg');">
+            <a href="kids.html">Kids</a>
+        </div>
+        <div class="category-card" style="background-image: url('img_dir/spacejoy-XpbtQfr9Skg-unsplash.jpg');">
+            <a href="home-decor.html">Home & Decor</a>
+        </div>
+        <div class="category-card" style="background-image: url('img_dir/football-488700_1280.jpg');">
+            <a href="sports.html">Sports</a>
+        </div>
+        <div class="category-card" style="background-image: url('img_dir/eco-warrior-princess-xAiYtFQf-kg-unsplash.jpg');">
+            <a href="health-beauty.html">Health & Beauty</a>
+        </div>
+        <div class="category-card"
+             style="background-image: url('img_dir/warrior_holding_sword_by_kamrantariq1212_de0f1ke-414w-2x.jpg');">
+            <a href="books-media.html">Books & Media</a>
+        </div>
+    </section>
+</main>
+
+<footer>
+    <p>&copy; 2024 Your E-Commerce Site</p>
+</footer>
 </body>
 </html>
