@@ -63,7 +63,6 @@ header {
 }
 
 
-
 nav ul {
     list-style-type: none;
     padding: 0;
@@ -79,7 +78,6 @@ nav ul li a {
     color: white;
     text-decoration: none;
 }
-
 
 
 .cart-icon {
@@ -126,7 +124,6 @@ nav ul li a {
 }
 
 
-
 footer {
     color: white;
     text-align: center;
@@ -148,8 +145,6 @@ main {
     padding-top: 80px; /* Adjust based on the actual height of your header */
     padding-bottom: 70px; /* Adjust based on the actual height of your footer */
 }
-
-
 
 
 .product-categories {
@@ -208,7 +203,6 @@ main {
 }
 
 
-
 @media (max-width: 600px) {
     .product-categories {
         grid-template-columns: 1fr; /* One column layout on smaller screens */
@@ -233,5 +227,180 @@ main {
 
     .cart-icon {
         font-size: 1.5em; /* Smaller cart icon for smaller screens */
+    }
+}
+
+
+
+
+
+
+.about-hero h1 {
+    font-family: 'Poppins', Arial, sans-serif;
+    font-size: 3em; /* Larger size for prominence */
+    color: #FFFFFF; /* Bright color for the text */
+    text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.7); /* Shadow for contrast */
+    margin-bottom: 50px; /* Space before the next section */
+    text-align: center;
+}
+
+.about-description, .about-features {
+    background-color: rgba(255, 255, 255, 0.5); /* More transparent background */
+    backdrop-filter: blur(10px); /* Apply a blur effect to the background */
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+.about-content {
+    max-width: 1200px; /* Adjust the maximum width if needed */
+    margin: auto;
+    padding: 0 20px; /* Padding on the sides */
+}
+
+/* Adjust the hero section padding to not block the view */
+.about-hero {
+    /* Remove top padding */
+    padding: 0 20px 20px;
+}
+
+/* Responsive adjustments for the hero section */
+@media (max-width: 800px) {
+    .about-hero h1 {
+        font-size: 2em; /* Smaller font size for smaller screens */
+    }
+}
+
+
+
+
+
+
+
+
+.contact-hero h1 {
+    font-family: 'Poppins', Arial, sans-serif;
+    font-size: 3em;
+    color: #FFFFFF;
+    text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.7);
+    margin-bottom: 50px;
+    text-align: center;
+}
+
+.contact-content {
+    display: flex;
+    justify-content: space-between;
+    margin: auto;
+    max-width: 1200px;
+    padding: 0 20px;
+    gap: 20px; /* This will create space between the flex items */
+}
+
+.contact-information, .contact-form {
+    background-color: rgba(255, 255, 255, 0.5);
+    backdrop-filter: blur(10px);
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    flex-basis: 48%; /* Adjust the width of each column */
+}
+
+.contact-information ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+.contact-information li {
+    padding: 10px 0;
+}
+
+.contact-form form {
+    display: flex;
+    flex-direction: column;
+}
+
+.contact-form form input[type="text"],
+.contact-form form input[type="email"],
+.contact-form form textarea {
+    margin-bottom: 15px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.contact-form form button {
+    padding: 10px 15px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.contact-form form button:hover {
+    background-color: #0056b3;
+}
+
+/* Responsive adjustments */
+@media (max-width: 800px) {
+    .contact-content {
+        flex-direction: column;
+        gap: 20px; /* Maintain gap on smaller screens */
+    }
+
+    .contact-information, .contact-form {
+        flex-basis: 100%;
+    }
+
+    .contact-hero h1 {
+        font-size: 2em; /* Smaller font size for smaller screens */
+    }
+}
+
+
+
+
+
+
+
+.cart-hero {
+    text-align: center;
+    padding: 50px 20px;
+    color: white;
+    background-image: url('img_dir/your-hero-image.jpg'); /* Replace with your hero image */
+    background-size: cover;
+    background-position: center;
+}
+
+.cart-hero h1 {
+    font-family: 'Poppins', Arial, sans-serif;
+    font-size: 3em; /* Larger size for prominence */
+    color: #FFFFFF; /* Bright color for the text */
+    text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.7); /* Shadow for contrast */
+    margin-bottom: 50px; /* Space before the next section */
+}
+
+.cart-content {
+    background-color: rgba(255, 255, 255, 0.5); /* Semi-transparent background */
+    backdrop-filter: blur(10px); /* Apply a blur effect to the background */
+    padding: 20px;
+    border-radius: 8px;
+    margin: 20px auto;
+    max-width: 1200px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* Add styles for cart items, totals, buttons, etc. */
+
+/* Responsive adjustments */
+@media (max-width: 800px) {
+    .cart-hero h1 {
+        font-size: 2em; /* Smaller font size for smaller screens */
+    }
+
+    .cart-content {
+        padding: 0 20px; /* Padding on the sides */
     }
 }
