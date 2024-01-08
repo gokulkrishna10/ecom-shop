@@ -7,7 +7,8 @@ const express = require("express"),
     envFile = require('../env.json'),
     multer = require('multer'),
     path = require("path"),
-    fs = require('fs');
+    fs = require('fs'),
+    constants = require('../constants/constants');
 
 var ErrorMod = require('../customnodemodules/error_node_module/errors');
 var customError = new ErrorMod();
@@ -73,7 +74,10 @@ const upload = multer({storage: storage});
 
 
 //add products
-router.post('/products', upload.array('prod_image', 4), eComShopValidator.uploadFiles, routes.addProducts)
+router.post('/products', upload.array('prod_image', constants.maxInputFileCount), eComShopValidator.uploadFiles, routes.addProducts)
+
+//get all products
+router.get('/products', routes.getProducts)
 
 
 router.all('/*', function (req, res) {
