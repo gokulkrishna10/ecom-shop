@@ -1,15 +1,15 @@
 const eComShopDao = require('../dao/eComShopManagerDAO')
 
 
-exports.createTask = function (req, callback) {
-    eComShopDao.createTask(req, (err, result) => {
+exports.addProducts = function (req, callback) {
+    eComShopDao.addProducts(req, (err, result) => {
         if (err) {
             callback(err, null)
         } else {
             if (result) {
-                callback(null, {'status': "success", "msg": "successfully created a task"})
+                callback(null, {'status': "success", "msg": "product/s added successfully"})
             } else {
-                callback(null, {"status": "no-action", "msg": "task could not be created"})
+                callback(null, {"status": "no-action", "msg": "product/s could not be added"})
             }
         }
     })

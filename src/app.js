@@ -4,7 +4,10 @@ const express = require("express"),
     router = express.Router(),
     routes = require("../routes"),
     portConfiguration = require('../portConfiguration.json'),
-    envFile = require('../env.json');
+    envFile = require('../env.json'),
+    multer = require('multer'),
+    path = require("path"),
+    fs = require('fs');
 
 var ErrorMod = require('../customnodemodules/error_node_module/errors');
 var customError = new ErrorMod();
@@ -45,8 +48,32 @@ router.all("*", function (req, res, next) {
     next();
 });
 
-//create a task
-router.post('/task', eComShopValidator.validateCreateTask, routes.createTask)
+
+// CREATE UPLOADS DIRECTORY WHENEVER THE SERVER RUNS
+
+const uploadDir = path.join(__dirname, '../uploads');
+// Check if the uploads directory exists, and create it if it doesn't
+if (!fs.existsSync(uploadDir)) {
+    fs.mkdirSync(uploadDir, {recursive: true});
+}
+
+// FILE UPLOAD USING MULTER
+// Set up storage engine
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, '../uploads/')
+    },
+    filename: function (req, file, cb) {
+        cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname))
+    }
+});
+
+// Initialize upload
+const upload = multer({storage: storage});
+
+
+//add products
+router.post('/products', upload.array('prod_image', 4), eComShopValidator.uploadFiles, routes.addProducts)
 
 
 router.all('/*', function (req, res) {

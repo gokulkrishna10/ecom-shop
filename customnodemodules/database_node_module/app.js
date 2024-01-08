@@ -137,9 +137,6 @@ function getFailoverReadConnection(callback) {
 }
 
 
-exports.getReadConnection = getReadConnection;
-
-
 /*** to Use for GET requests */
 
 
@@ -162,9 +159,100 @@ exports.queryWithOptions = function (options, callback) {
     });
 };
 
+
+/** Multiple sequenced updates/inserts with/without transaction support */
+
+exports.executeMultipleWithOptions = function (mOptions, isTransaction, callback) {
+
+    if (!mOptions || (!(mOptions instanceof Array)) || mOptions.length <= 0) {
+        callback(null, null);
+    } else {
+        getReadConnection(function (err, con) {
+            if (err) {
+                callback(err, null);
+            } else {
+                if (isTransaction) {
+                    con.beginTransaction(function (err) {
+                        if (err) {
+                            callback(err, null);
+                        } else {
+                            var resultList = new Array(mOptions.length);
+                            executeSequencedQuery(mOptions, 0, con, resultList, function (err) {
+                                if (err) {
+                                    rollbackTransaction(con, err, callback);
+                                } else {
+                                    commitTransaction(con, resultList, callback);
+                                }
+                            });
+                        }
+                    });
+                } else {
+                    var resultList = new Array(mOptions.length);
+                    executeSequencedQuery(mOptions, 0, con, resultList, function (err) {
+                        releaseConnection(con);
+                        if (err) {
+                            callback(err, null);
+                        } else {
+                            callback(null, resultList);
+                        }
+                    });
+                }
+            }
+        });
+    }
+};
+
+function executeSequencedQuery(mOptions, i, con, resultList, callback) {
+
+    var options = mOptions[i];
+    con.query(options, function (err, rows) {
+        if (err) {
+            callback(err);
+        } else {
+            resultList[i] = rows;
+            if ((i + 1) < mOptions.length) {
+                executeSequencedQuery(mOptions, i + 1, con, resultList, function (err) {
+                    if (err) {
+                        callback(err);
+                    } else {
+                        callback(null);
+                    }
+                });
+            } else {
+                callback(null);
+            }
+        }
+    });
+
+}
+
+function rollbackTransaction(con, err, callback) {
+    con.rollback(function () {
+        releaseConnection(con);
+        callback(err, null);
+    });
+}
+
+function commitTransaction(con, result, callback) {
+    con.commit(function (err) {
+        if (err) {
+            rollbackTransaction(con, err, callback);
+        } else {
+            try {
+                con.release();
+            } catch (e) {
+            }
+            callback(null, result);
+        }
+
+    });
+}
+
 function releaseConnection(con) {
     try {
         con.release();
     } catch (e) {
     }
 }
+
+exports.getReadConnection = getReadConnection;

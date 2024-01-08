@@ -3,18 +3,22 @@ const eComShopHelper = require('../helpers/eComShopManagerHelper')
 const constants = require('../constants/constants')
 
 
-exports.createTask = function (req, callback) {
-    let taskMapper = eComShopHelper.createTaskMapper(req)
-    let options = {
-        sql: `insert into ${constants.db_tables['TASK_MANAGER']} set ?;`,
-        values: [taskMapper]
+exports.addProducts = function (req, callback) {
+    let productMapper = eComShopHelper.addProducts(req)
+    let options = []
+
+    for (const obj of productMapper) {
+        options.push({
+            sql: `insert into ${constants.db_tables['ECOMMERCE_PRODUCTS']} set ?;`,
+            values: [obj]
+        })
     }
 
-    db.queryWithOptions(options, (dbErr, dbResp) => {
+    db.executeMultipleWithOptions(options, true, (dbErr, dbResp) => {
         if (dbErr) {
             callback(dbErr, null)
         } else {
-            if (dbResp.affectedRows > 0) {
+            if (dbResp && dbResp.length > 0) {
                 callback(null, dbResp)
             } else {
                 callback(null, null)
