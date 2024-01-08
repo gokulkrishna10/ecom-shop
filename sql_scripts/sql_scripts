@@ -1,0 +1,8 @@
+CREATE TABLE `sql5670865`.`ecom_products` (
+  `pid` INT NOT NULL AUTO_INCREMENT,
+  `prod_name` VARCHAR(100) NOT NULL,
+  `price` DECIMAL(50) NOT NULL,
+  `short_description` VARCHAR(200) NULL,
+  `category` VARCHAR(45) NOT NULL,
+  `prod_image` BLOB(100) NULL,
+  PRIMARY KEY (`pid`));
