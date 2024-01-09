@@ -3,16 +3,47 @@ const eComShopHelper = require('../helpers/eComShopManagerHelper')
 const constants = require('../constants/constants')
 
 
+exports.addProducts = function (req, callback) {
+    let productMapper = eComShopHelper.addProducts(req)
+    let options = []
+
+    for (const obj of productMapper) {
+        options.push({
+            sql: `insert into ${constants.db_tables['ECOMMERCE_PRODUCTS']} set ?;`,
+            values: [obj]
+        })
+    }
+
+    db.executeMultipleWithOptions(options, true, (dbErr, dbResp) => {
+        if (dbErr) {
+            callback(dbErr, null)
+        } else {
+            if (dbResp && dbResp.length > 0) {
+                callback(null, dbResp)
+            } else {
+                callback(null, null)
+            }
+        }
+    })
+}
+
+
 exports.getProducts = function (req, callback) {
 
     let options = {
-        sql: `select pid,prod_name,price,short_description,category from ${constants.db_tables['ECOMMERCE_PRODUCTS']}`
+        sql: `select pid,prod_name,price,short_description,category,prod_image from ${constants.db_tables['ECOMMERCE_PRODUCTS']}`
     }
 
     db.queryWithOptions(options, (dbErr, dbResp) => {
         if (dbErr) {
             callback(dbErr, null)
         } else {
+            if (dbResp && dbResp.length > 0) {
+                for (const obj of dbResp) {
+                    // Convert binary data of file to Base64 string
+                    obj.prod_image = obj.prod_image.toString('base64');
+                }
+            }
             callback(null, dbResp)
         }
     })
