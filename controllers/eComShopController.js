@@ -23,3 +23,18 @@ exports.getProducts = function (req, callback) {
         }
     })
 }
+
+
+exports.updateCart = function (req, callback) {
+    eComShopDao.updateCart(req, (err, result) => {
+        if (err) {
+            callback(err, null)
+        } else {
+            if (result) {
+                callback(null, {'status': "success", "msg": "cart updated successfully"})
+            } else {
+                callback(null, {"status": "no-action", "msg": "no change made to cart"})
+            }
+        }
+    })
+}

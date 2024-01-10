@@ -7,3 +7,18 @@ CREATE TABLE `sql5670865`.`ecom_products` (
   `prod_image` MEDIUMBLOB NULL,
   `created_date` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`pid`));
+
+
+
+  CREATE TABLE `sql5670865`.`ecom_cart` (
+    `cart_id` INT NOT NULL AUTO_INCREMENT,
+    `pid` INT NOT NULL,
+    `quantity` INT NULL DEFAULT 0,
+    PRIMARY KEY (`cart_id`),
+    ADD UNIQUE INDEX `pid_UNIQUE` (`pid` ASC),
+    INDEX `pid_idx` (`pid` ASC),
+    CONSTRAINT `pid`
+      FOREIGN KEY (`pid`)
+      REFERENCES `sql5670865`.`ecom_products` (`pid`)
+      ON DELETE RESTRICT
+      ON UPDATE CASCADE);

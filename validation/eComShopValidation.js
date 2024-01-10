@@ -3,19 +3,6 @@ const ErrorMod = require('../customnodemodules/error_node_module/errors')
 const customError = new ErrorMod()
 
 
-exports.validateAddProducts = function (req, res, next) {
-    let err = null;
-
-    if (!req.body || !req.body.length > 0) {
-        err = customError.BadRequest("request body cannot be empty")
-        next(err)
-    } else if (!req.body || !req.body.length > 0) {
-        err = customError.BadRequest("request body cannot be empty")
-        next(err)
-    }
-    next()
-}
-
 exports.uploadFiles = function (req, res, next) {
     let err = null
 
@@ -41,5 +28,22 @@ exports.uploadFiles = function (req, res, next) {
     next()
 }
 
+
+exports.validateUpdateCart = function (req, res, next) {
+    let err = null;
+
+    if (Object.keys(req.body).length === 0) {
+        err = customError.BadRequest("request body is missing")
+        next(err)
+    } else if (util.isNull((req.body.pid))) {
+        err = customError.BadRequest("request needs a pid")
+        next(err)
+    } else if (util.isNull((req.body.quantity))) {
+        err = customError.BadRequest("request needs product quantity")
+        next(err)
+    } else {
+        next()
+    }
+}
 
 

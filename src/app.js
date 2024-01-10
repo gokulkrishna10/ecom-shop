@@ -79,6 +79,9 @@ router.post('/products', upload.array('prod_image', constants.maxInputFileCount)
 //get all products
 router.get('/products', routes.getProducts)
 
+//update cart
+router.put('/cart', eComShopValidator.validateUpdateCart, routes.updateCart)
+
 
 router.all('/*', function (req, res) {
     res.status(404);
