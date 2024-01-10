@@ -1,3 +1,8 @@
+html, body {
+    max-width: 100%;
+    overflow-x: hidden;
+}
+
 body {
     font-family: Arial, sans-serif;
     margin: 0;
@@ -37,10 +42,6 @@ header {
     z-index: 1000; /* High z-index to ensure header is above all other content */
 }
 
-/*header .logo {*/
-/*    font-size: 24px;*/
-/*    margin-left: 10px;*/
-/*}*/
 
 .logo a, .cart-icon a, nav ul li a {
     color: white;
@@ -231,10 +232,6 @@ main {
 }
 
 
-
-
-
-
 .about-hero h1 {
     font-family: 'Poppins', Arial, sans-serif;
     font-size: 3em; /* Larger size for prominence */
@@ -270,12 +267,6 @@ main {
         font-size: 2em; /* Smaller font size for smaller screens */
     }
 }
-
-
-
-
-
-
 
 
 .contact-hero h1 {
@@ -358,11 +349,6 @@ main {
 }
 
 
-
-
-
-
-
 .cart-hero {
     text-align: center;
     padding: 50px 20px;
@@ -405,11 +391,6 @@ main {
 }
 
 
-
-
-
-
-
 .products-hero {
     text-align: center;
     padding: 50px 20px;
@@ -446,18 +427,26 @@ main {
     padding: 10px;
     border-radius: 5px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+
+    position: relative; /* Position relative for absolutely positioned elements inside */
 }
 
 .product-image {
     width: 100%; /* Adjust the width as needed */
-    height: auto; /* Maintain aspect ratio */
-    object-fit: contain; /* Ensure the image is scaled correctly */
+    /*height: auto; !* Maintain aspect ratio *!*/
+    /*object-fit: contain; !* Ensure the image is scaled correctly *!*/
     border-radius: 5px;
+
+    height: 150px; /* Set a fixed height */
+    object-fit: cover; /* Cover the area without stretching the image */
+    margin-bottom: 10px; /* Add space below the image */
 }
 
 .product-name {
     font-size: 1.2em;
-    margin: 10px 0;
+    /*margin: 10px 0;*/
+
+    margin: 5px 0;
 }
 
 .product-price {
@@ -476,9 +465,11 @@ main {
         grid-template-columns: 1fr;
         padding: 0 20px;
     }
+
+    .product-image {
+        height: 200px; /* Larger fixed height on smaller screens */
+    }
 }
-
-
 
 
 .add-button, .minus-button {
@@ -489,6 +480,8 @@ main {
     background-color: #007bff;
     color: white;
     cursor: pointer;
+
+    flex-grow: 1; /* Buttons grow to fill the container */
 }
 
 .minus-button {
@@ -499,4 +492,8 @@ main {
     display: flex;
     justify-content: center;
     align-items: center;
+
+    position: relative; /* Position it at the bottom of the card */
+    bottom: 10px; /* Space from the bottom */
+    width: 100%; /* Full width of the card */
 }
