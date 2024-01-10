@@ -45,6 +45,7 @@ function displayProducts(products) {
         addButton.className = 'add-button';
         addButton.textContent = '+ Add';
         addButton.onclick = function () {
+            updateCartAPI(product.pid, product.quantity, 1); // Add to cart
             product.quantity = (product.quantity || 0) + 1;
             updateProductDisplay(productCard, product);
         };
@@ -55,6 +56,7 @@ function displayProducts(products) {
         minusButton.textContent = '-';
         minusButton.style.display = 'none'; // Hide by default
         minusButton.onclick = function () {
+            updateCartAPI(product.pid, product.quantity, 0); // Remove from cart
             if (product.quantity > 1) {
                 product.quantity -= 1;
             } else {
@@ -74,7 +76,43 @@ function displayProducts(products) {
         productCard.appendChild(buttonContainer);
 
         productsGrid.appendChild(productCard);
+
+        // function call to ensure that + and - buttons are in the right state(in sync with the db values) without onclick event
+        updateProductDisplay(productCard, product);
     });
+}
+
+
+// Function to update the cart via API call
+function updateCartAPI(pid, quantity, addToCart) {
+    const apiEndPoint = "http://localhost:8888/cart";
+    const payload = {
+        pid: pid,
+        quantity: quantity,
+        addToCart: addToCart
+    };
+
+    fetch(apiEndPoint, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(payload)
+    })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log(data);
+            // Handle success - update UI or show message
+        })
+        .catch((error) => {
+            console.error(error);
+            // Handle error - update UI or show error message
+        });
 }
 
 
