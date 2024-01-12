@@ -11,7 +11,7 @@ body {
     background: url('img_dir/wallpaperflare.com_wallpaper (10).jpg') no-repeat center center fixed;
     background-size: cover; /* Cover the entire viewport */
     /* Height of the header */
-    padding: 70px 0 0;
+    /*padding: 0 0 0;*/
 }
 
 header, footer {
@@ -28,8 +28,9 @@ header, footer {
 
 header {
     /* Alternatively, for a subtler effect, you can use a very light translucent background */
-    /* background-color: rgba(255, 255, 255, 0.05); */ /* Very light white translucent background */
-    background-color: transparent; /* Make the header fully transparent */
+    /*background-color: rgba(255, 255, 255, 0.05); /*Very light white translucent background*/
+    /*background-color: transparent; !* Make the header fully transparent *!*/
+    background-color: rgba(0, 0, 0, 0.7); /* Dark background for contrast */
     color: white;
     padding: 1em;
     display: flex;
@@ -38,8 +39,10 @@ header {
     position: relative; /* Changed from sticky to fixed */
     top: 0;
     width: 100%; /* Ensure the header spans the full width */
-    box-shadow: none; /* Remove the shadow for a cleaner look */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3); /* Optional: Adds shadow for depth */
     z-index: 1000; /* High z-index to ensure header is above all other content */
+    left: 0; /* Ensure it's aligned to the left */
+    right: 0; /* Ensure it stretches to the right */
 }
 
 
@@ -47,11 +50,20 @@ header {
     color: white;
     text-decoration: none;
     transition: color 0.3s ease;
+    font-weight: 700; /* Make text bolder */
+    text-shadow: 0 0 8px rgba(0, 0, 0, 0.8); /* Text shadow for depth */
 }
 
 .logo a:hover, .cart-icon a:hover, nav ul li a:hover {
     color: #ddd; /* Slight highlight effect on hover */
 }
+
+/* You can also add an underline or change color to make the hover effect more noticeable */
+nav ul li a:hover {
+    text-decoration: underline; /* Add underline on hover */
+    color: #a9d6ff; /* Light blue color on hover for better visibility */
+}
+
 
 .logo a {
     cursor: pointer; /* Shows the pointer hand icon when you hover over the link */
@@ -118,6 +130,9 @@ nav ul li a {
 .cart-icon a:hover {
     color: #ddd; /* Slight highlight effect on hover */
     transition: color 0.3s ease;
+    background-color: rgba(255, 255, 255, 0.2); /* White background on hover */
+    border-radius: 5px; /* Rounded corners for the hover background */
+    padding: 0.5em; /* Padding to maintain size with new background */
 }
 
 .fas {
