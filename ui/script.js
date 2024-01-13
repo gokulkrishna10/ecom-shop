@@ -127,3 +127,101 @@ function updateProductDisplay(productCard, product) {
         addButton.textContent = '+ Add';
     }
 }
+
+
+function fetchCartItems() {
+    const apiEndpoint = 'http://localhost:8888/cart';
+
+    fetch(apiEndpoint)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Failed to fetch cart items');
+            }
+            return response.json();
+        })
+        .then(cartItems => {
+            displayCartItems(cartItems);
+        })
+        .catch(error => console.error('Error:', error));
+}
+
+function displayCartItems(cartItems) {
+    // Select the container where cart items will be displayed
+    const cartContent = document.querySelector('.cart-content');
+    cartContent.innerHTML = ''; // Clear existing cart items before adding new ones
+
+    // Loop over each item in the cart
+    cartItems.forEach(item => {
+        // Create a div to hold the cart item details
+        const cartItem = document.createElement('div');
+        cartItem.className = 'cart-item';
+        cartItem.setAttribute('product_id', item.pid); // Store product id for potential use
+
+        // Create an image element and set its source and alt text
+        const img = new Image();
+        img.src = `data:image/jpeg;base64,${item.prod_image}`;
+        img.alt = item.short_description;
+        img.className = 'cart-item-image';
+
+        // Create a heading for the item name
+        const itemName = document.createElement('h3');
+        itemName.className = 'cart-item-name';
+        itemName.textContent = item.prod_name; // Set the text content to the product name
+
+        // Create a paragraph for the item price
+        const itemPrice = document.createElement('p');
+        itemPrice.className = 'cart-item-price';
+        itemPrice.textContent = `$${item.price}`; // Set the text content to the product price
+
+        // Create a container for the item quantity controls
+        const itemQuantityContainer = document.createElement('div');
+        itemQuantityContainer.className = 'cart-item-quantity-container';
+
+        // Create a div that groups the quantity controls together
+        const quantityControls = document.createElement('div');
+        quantityControls.className = 'quantity-controls';
+
+        // Create a button to decrease the item quantity
+        const minusButton = document.createElement('button');
+        minusButton.className = 'cart-minus-button';
+        minusButton.textContent = '−';
+        minusButton.onclick = function () {
+            // Logic to decrease the quantity will be implemented here
+        };
+
+        // Create a span that displays the current quantity of the item
+        const quantityText = document.createElement('span');
+        quantityText.className = 'cart-quantity';
+        quantityText.textContent = item.quantity; // Set the text content to the current quantity
+
+        // Create a button to increase the item quantity
+        const plusButton = document.createElement('button');
+        plusButton.className = 'cart-plus-button';
+        plusButton.textContent = '+';
+        plusButton.onclick = function () {
+            // Logic to increase the quantity will be implemented here
+        };
+
+        // Append the minus button, quantity text, and plus button to the quantity controls container
+        quantityControls.appendChild(minusButton);
+        quantityControls.appendChild(quantityText);
+        quantityControls.appendChild(plusButton);
+
+        // Append the item price and quantity controls to the item quantity container
+        itemQuantityContainer.appendChild(itemPrice);
+        itemQuantityContainer.appendChild(quantityControls);
+
+        // Append the image, item name, and item quantity container to the cart item div
+        cartItem.appendChild(img);
+        cartItem.appendChild(itemName);
+        cartItem.appendChild(itemQuantityContainer);
+
+        // Finally, append the cart item div to the cart content container in the DOM
+        cartContent.appendChild(cartItem);
+    });
+}
+
+// Call fetchCartItems() if on cart.html page
+if (window.location.pathname.endsWith('cart.html')) {
+    document.addEventListener('DOMContentLoaded', fetchCartItems);
+}
