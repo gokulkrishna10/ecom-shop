@@ -54,20 +54,31 @@ router.all("*", function (req, res, next) {
 
 const uploadDir = path.join(__dirname, '../uploads');
 // Check if the uploads directory exists, and create it if it doesn't
-if (!fs.existsSync(uploadDir)) {
-    fs.mkdirSync(uploadDir, {recursive: true});
+try {
+    if (!fs.existsSync(uploadDir)) {
+        fs.mkdirSync(uploadDir, {recursive: true});
+    }
+} catch (error) {
+    console.log("Could not create the uploads directory - ", error)
 }
 
+
 // FILE UPLOAD USING MULTER
+
 // Set up storage engine
-const storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-        cb(null, '../uploads/')
-    },
-    filename: function (req, file, cb) {
-        cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname))
-    }
-});
+try {
+    const storage = multer.diskStorage({
+        destination: function (req, file, cb) {
+            cb(null, uploadDir)
+        },
+        filename: function (req, file, cb) {
+            cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname))
+        }
+    });
+} catch (error) {
+    console.log("Could not setup the storage disk directory - ", error)
+}
+
 
 // Initialize upload
 const upload = multer({storage: storage});
