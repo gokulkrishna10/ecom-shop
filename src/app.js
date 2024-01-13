@@ -50,7 +50,7 @@ router.all("*", function (req, res, next) {
 });
 
 
-// CREATE UPLOADS DIRECTORY WHENEVER THE SERVER RUNS
+// CREATE UPLOADS DIRECTORY WHENEVER THE SERVER RUNS IF IT DOES NOT ALREADY EXIST
 
 const uploadDir = path.join(__dirname, '../uploads');
 // Check if the uploads directory exists, and create it if it doesn't
