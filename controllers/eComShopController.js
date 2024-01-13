@@ -38,3 +38,14 @@ exports.updateCart = function (req, callback) {
         }
     })
 }
+
+
+exports.getCartItems = function (req, callback) {
+    eComShopDao.getCartItems(req, (err, result) => {
+        if (err) {
+            callback(err, null)
+        } else {
+            callback(null, result)
+        }
+    })
+}

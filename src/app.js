@@ -82,6 +82,9 @@ router.get('/products', routes.getProducts)
 //update cart
 router.put('/cart', eComShopValidator.validateUpdateCart, routes.updateCart)
 
+//get cart
+router.get('/cart', routes.getCartItems)
+
 
 router.all('/*', function (req, res) {
     res.status(404);

@@ -12,7 +12,7 @@
 <header>
     <div class="logo">
         <a href="index.html">
-            <img src="img_dir/DALL·E.jpg" alt="E-Shop Logo" style="height: 50px;"> <!-- Update height as needed -->
+            <img src="img_dir/DALL·E.jpg" alt="E-Shop Logo" style="height: 50px;">
         </a>
     </div>
     <nav>
@@ -34,6 +34,40 @@
     <section class="cart-hero">
         <h1>Your Shopping Cart</h1>
     </section>
+    <!-- Pickup and Delivery Options Header -->
+    <div class="pickup-delivery-header">
+        <i class="fas fa-shipping-fast"></i>
+        <span class="header-title">Pickup and delivery options</span>
+        <button id="toggleOptions" aria-expanded="false" class="toggle-options-button">
+            <i class="fas fa-chevron-down"></i>
+        </button>
+    </div>
+
+    <!-- Pickup and Delivery Options Content -->
+    <div id="pickupDeliveryOptions" class="pickup-delivery-content" style="display: none;">
+
+        <!-- Pickup Card -->
+        <div class="option-card pickup-card">
+            <div class="card-icon-container">
+                <i class="fas fa-store"></i>
+            </div>
+            <div class="card-info">
+                <h3>Pickup</h3>
+                <p>All items available</p>
+            </div>
+        </div>
+
+        <!-- Delivery Card -->
+        <div class="option-card delivery-card">
+            <div class="card-icon-container">
+                <i class="fas fa-truck"></i>
+            </div>
+            <div class="card-info">
+                <h3>Delivery</h3>
+                <p>All items available</p>
+            </div>
+        </div>
+    </div>
 
     <section class="cart-content">
         <!-- Cart items will be dynamically inserted here -->
@@ -43,5 +77,6 @@
 <footer>
     <p>&copy; 2024 Your E-Commerce Site</p>
 </footer>
+<script src="script.js"></script>
 </body>
 </html>

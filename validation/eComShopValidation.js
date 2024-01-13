@@ -38,8 +38,8 @@ exports.validateUpdateCart = function (req, res, next) {
     } else if (util.isNull((req.body.pid))) {
         err = customError.BadRequest("request needs a pid")
         next(err)
-    } else if (util.isNull((req.body.quantity))) {
-        err = customError.BadRequest("request needs product quantity")
+    } else if (req.body.quantity < 0) {
+        err = customError.BadRequest("product quantity has to be a non negative number")
         next(err)
     } else {
         next()
