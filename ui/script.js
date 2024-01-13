@@ -1,5 +1,16 @@
 document.addEventListener('DOMContentLoaded', function () {
+    // Check if we're on the products page
+    if (window.location.pathname.endsWith('products.html')) {
+        fetchProducts();
+    }
 
+    // Check if we're on the cart page
+    if (window.location.pathname.endsWith('cart.html')) {
+        fetchCartItems();
+    }
+});
+
+function fetchProducts() {
     // Define the API endpoint
     const apiEndpoint = 'http://localhost:8888/products';
 
@@ -12,7 +23,8 @@ document.addEventListener('DOMContentLoaded', function () {
         })
         .then(products => displayProducts(products))
         .catch(error => console.error('Error:', error));
-});
+}
+
 
 function displayProducts(products) {
     const productsGrid = document.querySelector('.products-grid');
@@ -149,6 +161,13 @@ function displayCartItems(cartItems) {
     // Select the container where cart items will be displayed
     const cartContent = document.querySelector('.cart-content');
     cartContent.innerHTML = ''; // Clear existing cart items before adding new ones
+    if (cartItems.length === 0) {
+        const emptyCartMessage = document.createElement('div');
+        emptyCartMessage.className = 'empty-cart-message';
+        emptyCartMessage.textContent = 'Your cart is empty. Start shopping now!';
+        cartContent.appendChild(emptyCartMessage);
+        return
+    }
 
     // Loop over each item in the cart
     cartItems.forEach(item => {
@@ -187,6 +206,14 @@ function displayCartItems(cartItems) {
         minusButton.textContent = '−';
         minusButton.onclick = function () {
             // Logic to decrease the quantity will be implemented here
+            updateCartAPI(item.pid, item.quantity, 0); // Remove from cart
+            if (item.quantity > 1) {
+                item.quantity -= 1;
+                updateQuantityDisplay(cartItem, item.quantity); // Update the quantity in the UI
+            } else {
+                cartContent.removeChild(cartItem); // Remove the cart item from the UI
+            }
+            // display the reduced quantity in the UI
         };
 
         // Create a span that displays the current quantity of the item
@@ -199,7 +226,9 @@ function displayCartItems(cartItems) {
         plusButton.className = 'cart-plus-button';
         plusButton.textContent = '+';
         plusButton.onclick = function () {
-            // Logic to increase the quantity will be implemented here
+            updateCartAPI(item.pid, item.quantity, 1); // Add to cart
+            item.quantity = (item.quantity || 0) + 1;
+            updateQuantityDisplay(cartItem, item.quantity); // Update the quantity in the UI
         };
 
         // Append the minus button, quantity text, and plus button to the quantity controls container
@@ -221,7 +250,8 @@ function displayCartItems(cartItems) {
     });
 }
 
-// Call fetchCartItems() if on cart.html page
-if (window.location.pathname.endsWith('cart.html')) {
-    document.addEventListener('DOMContentLoaded', fetchCartItems);
+// This function is called to update the UI after a quantity change
+function updateQuantityDisplay(cartItem, newQuantity) {
+    const quantityText = cartItem.querySelector('.cart-quantity');
+    quantityText.textContent = newQuantity;
 }
