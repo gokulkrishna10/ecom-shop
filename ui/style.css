@@ -490,8 +490,6 @@ main {
 }
 
 
-
-
 .cart-hero {
     text-align: center;
     padding: 10px 20px;
@@ -606,4 +604,164 @@ main {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     margin: 15px auto; /* Center it with some margin */
     max-width: 400px; /* Narrow width for the empty message */
+}
+
+.cart-options {
+    background: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin-bottom: 30px;
+}
+
+.cart-title {
+    font-size: 1.5em;
+    color: #333;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.options-container {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 20px;
+}
+
+.option {
+    text-align: center;
+    flex-grow: 1;
+    margin: 0 10px;
+}
+
+.option i {
+    font-size: 2em;
+    color: #007bff;
+    margin-bottom: 8px;
+}
+
+.option p {
+    color: #555;
+    font-size: 0.9em;
+}
+
+
+.pickup-delivery-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    /*padding: 15px;*/
+    background-color: #f8f8f8;
+    cursor: pointer;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    /*margin-bottom: 15px;*/
+}
+
+.cart-content,.pickup-delivery-content,
+.pickup-delivery-header {
+    max-width: 800px; /* Ensure this matches */
+    margin: 10px auto; /* Adjust margins as necessary to match */
+    padding: 10px 20px; /* Adjust paddings as necessary to match */
+    /* ...other styles... */
+}
+
+.pickup-delivery-header .header-title {
+    flex-grow: 1;
+    margin-left: 10px;
+    color: #333;
+    font-weight: 600;
+}
+
+.pickup-delivery-header i {
+    margin-right: 10px;
+}
+
+.pickup-delivery-header span {
+    flex-grow: 1;
+}
+
+.pickup-delivery-content {
+    display: flex;
+    justify-content: space-around;
+    padding: 15px;
+    background-color: #ffffff;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+
+.option-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    border-radius: 8px;
+    border: 1px solid #e0e0e0;
+    background: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: calc(50% - 20px); /* Subtracting margin */
+    margin: 10px;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.option-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+.card-icon-container {
+    margin-bottom: 10px;
+}
+
+.card-icon-container img {
+    width: 50px; /* Adjust as needed */
+    height: auto;
+}
+
+.card-icon-container i {
+    font-size: 2em;
+    color: #007bff;
+    margin-bottom: 10px;
+}
+
+.card-info h3 {
+    color: #333;
+    font-size: 1.2em;
+    margin-bottom: 5px;
+}
+
+.card-info p {
+    color: #666;
+    font-size: 1em;
+}
+
+.toggle-options-button {
+    background: none;
+    border: none;
+    font-size: 1.5em;
+    color: #007bff;
+    cursor: pointer;
+}
+
+/* Additional responsive adjustments */
+@media (max-width: 800px) {
+    .pickup-delivery-content {
+        flex-direction: column;
+    }
+
+    .option-card {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+
+    .cart-hero h1,
+    .empty-cart-message,
+    .cart-item,
+    .cart-content {
+        padding: 10px;
+        margin-bottom: 10px;
+    }
 }

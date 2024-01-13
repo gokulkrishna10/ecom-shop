@@ -255,3 +255,20 @@ function updateQuantityDisplay(cartItem, newQuantity) {
     const quantityText = cartItem.querySelector('.cart-quantity');
     quantityText.textContent = newQuantity;
 }
+
+
+document.addEventListener('DOMContentLoaded', function () {
+    // Attach the click event listener to the toggle button after the DOM is fully loaded
+    document.getElementById('toggleOptions').addEventListener('click', function () {
+        let content = document.getElementById('pickupDeliveryOptions');
+        let button = this; // 'this' refers to the button that was clicked
+        let isExpanded = button.getAttribute('aria-expanded') === 'true';
+
+        // Toggle the content visibility and the aria-expanded attribute
+        content.style.display = isExpanded ? 'none' : 'flex';
+        button.setAttribute('aria-expanded', !isExpanded);
+
+        // Toggle the button icon
+        button.innerHTML = isExpanded ? '<i class="fas fa-chevron-down"></i>' : '<i class="fas fa-chevron-up"></i>';
+    });
+});
