@@ -7,74 +7,43 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     box-sizing: border-box;
-    min-height: 100vh; /* Ensure the body is at least the height of the viewport */
+    min-height: 100vh;
     background: url('img_dir/wallpaperflare.com_wallpaper (10).jpg') no-repeat center center fixed;
-    background-size: cover; /* Cover the entire viewport */
-    /* Height of the header */
-    /*padding: 0 0 0;*/
+    background-size: cover;
 }
 
 header, footer {
-    background-color: rgba(51, 51, 51, 0.8); /* Semi-transparent background */
+    background-color: rgba(51, 51, 51, 0.8);
     color: white;
     padding: 20px 0;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    position: sticky; /* Make header and footer stick to the top and bottom */
-    top: 0; /* For header */
-    z-index: 10; /* Ensure they are above other content */
+    position: sticky;
+    top: 0;
+    z-index: 10;
 }
 
 header {
-    /* Alternatively, for a subtler effect, you can use a very light translucent background */
-    /*background-color: rgba(255, 255, 255, 0.05); /*Very light white translucent background*/
-    /*background-color: transparent; !* Make the header fully transparent *!*/
-    background-color: rgba(0, 0, 0, 0.7); /* Dark background for contrast */
-    color: white;
+    background-color: rgba(0, 0, 0, 0.7);
     padding: 1em;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    position: relative; /* Changed from sticky to fixed */
-    top: 0;
-    width: 100%; /* Ensure the header spans the full width */
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3); /* Optional: Adds shadow for depth */
-    z-index: 1000; /* High z-index to ensure header is above all other content */
-    left: 0; /* Ensure it's aligned to the left */
-    right: 0; /* Ensure it stretches to the right */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    z-index: 1000;
+    left: 0;
+    right: 0;
 }
-
 
 .logo a, .cart-icon a, nav ul li a {
     color: white;
     text-decoration: none;
     transition: color 0.3s ease;
-    font-weight: 700; /* Make text bolder */
-    text-shadow: 0 0 8px rgba(0, 0, 0, 0.8); /* Text shadow for depth */
+    font-weight: 700;
+    text-shadow: 0 0 8px rgba(0, 0, 0, 0.8);
 }
 
 .logo a:hover, .cart-icon a:hover, nav ul li a:hover {
-    color: #ddd; /* Slight highlight effect on hover */
+    color: #ddd;
 }
-
-/* You can also add an underline or change color to make the hover effect more noticeable */
-nav ul li a:hover {
-    text-decoration: underline; /* Add underline on hover */
-    color: #a9d6ff; /* Light blue color on hover for better visibility */
-}
-
-
-.logo a {
-    cursor: pointer; /* Shows the pointer hand icon when you hover over the link */
-}
-
-.logo img {
-    display: block; /* This can help ensure the image is clickable */
-    height: 50px; /* Adjust the height as needed */
-    width: auto; /* Maintain the aspect ratio of the image */
-}
-
 
 nav ul {
     list-style-type: none;
@@ -84,98 +53,63 @@ nav ul {
 }
 
 nav ul li {
-    margin: 0 20px; /* Increase margin for better spacing */
+    margin: 0 20px;
 }
-
-nav ul li a {
-    color: white;
-    text-decoration: none;
-}
-
 
 .cart-icon {
-    font-size: 1.8em; /* Larger cart icon */
+    font-size: 1.8em;
     display: flex;
     align-items: center;
     justify-content: center;
-    color: white; /* Set the color of the icon */
-    text-decoration: none;
-    transition: color 0.3s ease;
-    background: none; /* Remove any background that might be causing shading */
-    box-shadow: none; /* Remove any box shadow */
-    text-shadow: none; /* Remove any text shadow */
-    position: relative; /* Needed for absolute positioning of the item count */
-}
-
-.cart-icon a {
     color: white;
     text-decoration: none;
-    font-size: 1.3em; /*!* Adjust the size of the icon *!*/
-    padding: 0.5em;
-    /*display: flex;*/
-    align-items: center; /* Align the text and icon vertically */
-    position: relative; /* Position relative for absolute positioning of children */
-    display: inline-flex; /* Use inline-flex to keep the link inline */
-    justify-content: center; /* Center badge horizontally */
+    transition: color 0.3s ease;
+    position: relative;
 }
 
 .cart-icon .fa-shopping-cart {
-    /*margin-right: 5px; !* Spacing between icon and text *!*/
-    margin-right: 20px; /* Spacing between icon and text */
-    /* Solid style icon but with a 'hollow' appearance */
-    -webkit-text-stroke: 2px white; /* Creates an outline effect with the stroke */
-    color: transparent; /* Makes the inside of the icon transparent */
+    margin-right: 20px;
+    -webkit-text-stroke: 2px white;
+    color: transparent;
 }
 
 .cart-icon a:hover {
-    color: #ddd; /* Slight highlight effect on hover */
-    transition: color 0.3s ease;
-    background-color: rgba(255, 255, 255, 0.2); /* White background on hover */
-    border-radius: 5px; /* Rounded corners for the hover background */
-    padding: 0.5em; /* Padding to maintain size with new background */
+    color: #ddd;
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 5px;
+    padding: 0.5em;
 }
 
 .fas {
-    font-weight: 900; /* FontAwesome solid style */
+    font-weight: 900;
 }
-
 
 footer {
-    color: white;
     text-align: center;
     padding: 20px 0;
-    position: relative; /* Keep the footer at the bottom of the viewport */
-    margin-top: auto; /* Ensures that the footer is at the bottom */
+    position: relative;
+    margin-top: auto;
     bottom: 0;
-    width: 100%; /* Ensure the footer spans the full width */
-    background-color: transparent; /* Make the footer completely transparent */
-    z-index: 1000; /* Ensure the footer is above all other content */
-    display: flex; /* Use flexbox to align the content */
-    justify-content: center; /* Centers the content horizontally */
-    align-items: center; /* Centers the content vertically */
+    width: 100%;
+    background-color: transparent;
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
-
-
-/* Adjust the padding of the main content so it doesn't get overlapped by the fixed footer */
-/*main {*/
-/*    padding-top: 80px; !* Adjust based on the actual height of your header *!*/
-/*    padding-bottom: 70px; !* Adjust based on the actual height of your footer *!*/
-/*}*/
 
 main {
-    /* Reduce the top padding to bring the content closer to the header */
-    padding-top: 20px; /* Adjust as needed */
-    padding-bottom: 20px; /* Adjust as needed */
+    padding-top: 20px;
+    padding-bottom: 20px;
 }
-
 
 .product-categories {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Adapts number of columns based on available width */
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 20px;
     padding: 20px;
-    height: calc(100vh - 160px); /* Adjust height calculation based on header and footer size */
-    align-content: stretch; /* Stretch the grid items vertically */
+    height: calc(100vh - 160px);
+    align-content: stretch;
 }
 
 .category-card {
@@ -185,13 +119,13 @@ main {
     padding: 20px;
     text-align: center;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
-    display: flex; /* Makes it a flex container */
-    align-items: center; /* Centers the link vertically */
-    justify-content: center; /* Centers the link horizontally */
-    background-size: cover; /* Cover the entire area of the card */
-    background-position: center; /* Center the image within the card */
-    position: relative; /* Position relative to allow absolute positioning inside */
-    color: white; /* White text for better contrast */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    color: white;
     overflow: hidden;
 }
 
@@ -202,21 +136,20 @@ main {
     right: 0;
     bottom: 0;
     left: 0;
-    background: rgba(0, 0, 0, 0.6); /* Increase the overlay opacity slightly */
+    background: rgba(0, 0, 0, 0.6);
     z-index: 1;
 }
 
 .category-card a {
     position: relative;
     z-index: 2;
-    color: #fff; /* Ensures text is white */
-    font-size: 1.8em; /* Slightly larger font size */
-    font-weight: bold; /* Bolder font for better legibility */
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8); /* Text shadow for better visibility */
+    color: #fff;
+    font-size: 1.8em;
+    font-weight: bold;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
     text-decoration: none;
     padding: 20px;
-    text-align: center;
-    display: block; /* Allows padding and center alignment to take effect */
+    display: block;
 }
 
 .category-card:hover {
@@ -224,18 +157,17 @@ main {
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
 }
 
-
 @media (max-width: 600px) {
     .product-categories {
-        grid-template-columns: 1fr; /* One column layout on smaller screens */
+        grid-template-columns: 1fr;
     }
 
     .category-card {
-        padding: 20px; /* Less padding on smaller screens */
+        padding: 20px;
     }
 
     .category-card a {
-        font-size: 1.4em; /* Smaller font size for smaller screens */
+        font-size: 1.4em;
         padding: 10px;
     }
 
@@ -244,51 +176,46 @@ main {
     }
 
     nav ul li {
-        margin: 0 10px; /* Smaller margin for smaller screens */
+        margin: 0 10px;
     }
 
     .cart-icon {
-        font-size: 1.5em; /* Smaller cart icon for smaller screens */
+        font-size: 1.5em;
     }
 }
 
-
 .about-hero h1 {
     font-family: 'Poppins', Arial, sans-serif;
-    font-size: 3em; /* Larger size for prominence */
-    color: #FFFFFF; /* Bright color for the text */
-    text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.7); /* Shadow for contrast */
-    margin-bottom: 50px; /* Space before the next section */
+    font-size: 3em;
+    color: #FFFFFF;
+    text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.7);
+    margin-bottom: 50px;
     text-align: center;
 }
 
 .about-description, .about-features {
-    background-color: rgba(255, 255, 255, 0.5); /* More transparent background */
-    backdrop-filter: blur(10px); /* Apply a blur effect to the background */
+    background-color: rgba(255, 255, 255, 0.5);
+    backdrop-filter: blur(10px);
     padding: 20px;
     border-radius: 8px;
     margin-bottom: 20px;
 }
 
 .about-content {
-    max-width: 1200px; /* Adjust the maximum width if needed */
+    max-width: 1200px;
     margin: auto;
-    padding: 0 20px; /* Padding on the sides */
+    padding: 0 20px;
 }
 
-/* Adjust the hero section padding to not block the view */
 .about-hero {
-    /* Remove top padding */
     padding: 0 20px 20px;
 }
 
-/* Responsive adjustments for the hero section */
 @media (max-width: 800px) {
     .about-hero h1 {
-        font-size: 2em; /* Smaller font size for smaller screens */
+        font-size: 2em;
     }
 }
-
 
 .contact-hero h1 {
     font-family: 'Poppins', Arial, sans-serif;
@@ -305,7 +232,7 @@ main {
     margin: auto;
     max-width: 1200px;
     padding: 0 20px;
-    gap: 20px; /* This will create space between the flex items */
+    gap: 20px;
 }
 
 .contact-information, .contact-form {
@@ -314,7 +241,7 @@ main {
     padding: 20px;
     border-radius: 8px;
     margin-bottom: 20px;
-    flex-basis: 48%; /* Adjust the width of each column */
+    flex-basis: 48%;
 }
 
 .contact-information ul {
@@ -331,9 +258,7 @@ main {
     flex-direction: column;
 }
 
-.contact-form form input[type="text"],
-.contact-form form input[type="email"],
-.contact-form form textarea {
+.contact-form form input[type="text"], .contact-form form input[type="email"], .contact-form form textarea {
     margin-bottom: 15px;
     padding: 10px;
     border: 1px solid #ccc;
@@ -353,11 +278,10 @@ main {
     background-color: #0056b3;
 }
 
-/* Responsive adjustments */
 @media (max-width: 800px) {
     .contact-content {
         flex-direction: column;
-        gap: 20px; /* Maintain gap on smaller screens */
+        gap: 20px;
     }
 
     .contact-information, .contact-form {
@@ -365,22 +289,19 @@ main {
     }
 
     .contact-hero h1 {
-        font-size: 2em; /* Smaller font size for smaller screens */
+        font-size: 2em;
     }
 }
 
-
-/* Responsive adjustments */
 @media (max-width: 800px) {
     .cart-hero h1 {
-        font-size: 2em; /* Smaller font size for smaller screens */
+        font-size: 2em;
     }
 
     .cart-content {
-        padding: 0 20px; /* Padding on the sides */
+        padding: 0 20px;
     }
 }
-
 
 .products-hero {
     text-align: center;
@@ -394,8 +315,7 @@ main {
     font-family: 'Poppins', Arial, sans-serif;
     color: #FFFFFF;
     text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.7);
-    font-size: 2.5em; /* You can adjust the size for a more compact header */
-    /* Remove the bottom margin if you want the title to be closer to the products */
+    font-size: 2.5em;
     margin-bottom: 0;
 }
 
@@ -419,25 +339,20 @@ main {
     padding: 10px;
     border-radius: 5px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    margin-bottom: 20px; /* Adjust as needed */
-    position: relative; /* Position relative for absolutely positioned elements inside */
+    margin-bottom: 20px;
+    position: relative;
 }
 
 .product-image {
-    width: 100%; /* Adjust the width as needed */
-    /*height: auto; !* Maintain aspect ratio *!*/
-    /*object-fit: contain; !* Ensure the image is scaled correctly *!*/
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
     border-radius: 5px;
-
-    height: 150px; /* Set a fixed height */
-    object-fit: cover; /* Cover the area without stretching the image */
-    margin-bottom: 10px; /* Add space below the image */
+    margin-bottom: 10px;
 }
 
 .product-name {
     font-size: 1.2em;
-    /*margin: 10px 0;*/
-
     margin: 5px 0;
 }
 
@@ -447,7 +362,6 @@ main {
     margin-bottom: 10px;
 }
 
-/* Responsive adjustments */
 @media (max-width: 800px) {
     .products-hero h1 {
         font-size: 2em;
@@ -457,12 +371,7 @@ main {
         grid-template-columns: 1fr;
         padding: 0 20px;
     }
-
-    .product-image {
-        height: 200px; /* Larger fixed height on smaller screens */
-    }
 }
-
 
 .add-button, .minus-button {
     padding: 10px;
@@ -472,8 +381,7 @@ main {
     background-color: #007bff;
     color: white;
     cursor: pointer;
-
-    flex-grow: 1; /* Buttons grow to fill the container */
+    flex-grow: 1;
 }
 
 .minus-button {
@@ -484,11 +392,10 @@ main {
     display: flex;
     justify-content: center;
     align-items: center;
-    position: relative; /* Position it at the bottom of the card */
-    bottom: 10px; /* Space from the bottom */
-    width: 100%; /* Full width of the card */
+    position: relative;
+    bottom: 10px;
+    width: 100%;
 }
-
 
 .cart-hero {
     text-align: center;
@@ -500,23 +407,20 @@ main {
 
 .cart-hero h1 {
     font-family: 'Poppins', Arial, sans-serif;
-    font-size: 2em; /* Larger size for prominence */
-    color: #FFFFFF; /* Bright color for the text */
-    text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.7); /* Shadow for contrast */
-    margin: 20px auto; /* Reduced space above and below the title */
+    font-size: 2em;
+    color: #FFFFFF;
+    text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.7);
+    margin: 20px auto;
 }
 
 .cart-content {
-    background-color: rgba(255, 255, 255, 0.5); /* Semi-transparent background */
-    backdrop-filter: blur(5px); /* Apply a blur effect to the background */
+    background-color: rgba(255, 255, 255, 0.5);
+    backdrop-filter: blur(5px);
     padding: 10px;
     border-radius: 8px;
-    margin: 10px auto; /* Top, Right, Bottom, Left */
+    margin: 10px auto;
     max-width: 800px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
-    /*display: flex;*/
-    /*flex-direction: column;*/
-    /*gap: 20px;*/
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 .cart-item {
@@ -524,65 +428,48 @@ main {
     justify-content: space-between;
     padding: 10px;
     border: 1px solid #ddd;
-    /*margin-bottom: 20px;*/
     background-color: white;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); /* Softer shadow */
-    border-radius: 5px; /* Slight rounding of corners */
-    align-items: center; /* Align items vertically */
-    margin: 10px 0; /* Space between items */
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    align-items: center;
+    margin: 10px 0;
 }
 
 .cart-item-image {
-    width: 80px; /* Set width as necessary */
-    height: 80px; /* Set height as necessary */
+    width: 80px;
+    height: 80px;
     object-fit: cover;
     margin-right: 15px;
 }
 
 .cart-item-name {
     flex-grow: 1;
-    font-size: 1em; /* Smaller font size for a tighter layout */
-    /* additional styling */
+    font-size: 1em;
 }
-
 
 .cart-item-quantity-container {
     display: flex;
     align-items: center;
-    flex-direction: column; /* Stack price and quantity vertically */
-    /* Align the stacked items to the right */
-}
-
-.quantity-controls {
-    display: flex;
-    align-items: center;
-    margin-top: 5px; /* Space above the quantity controls */
-}
-
-.cart-item-quantity-container {
-    margin-top: auto; /* Push the quantity controls to the bottom */
+    flex-direction: column;
+    margin-top: auto;
 }
 
 .cart-item-price {
-    align-self: flex-end; /* Aligns this item to the end of the flex container */
+    align-self: flex-end;
     font-size: 1em;
     color: #333;
-    margin-top: 5px; /* Space below the price for separation from quantity */
-    /*margin-right: 10px; !* Adjust the space from the right as needed *!*/
+    margin-top: 5px;
 }
 
-.cart-minus-button,
-.cart-plus-button,
-.cart-quantity {
+.cart-minus-button, .cart-plus-button, .cart-quantity {
     padding: 5px 10px;
     border: 1px solid #007bff;
-    margin: 2px; /* Reduced margin for tighter button grouping */
-    min-width: 30px; /* Minimum width for touch targets */
+    margin: 2px;
+    min-width: 30px;
     text-align: center;
 }
 
-.cart-minus-button,
-.cart-plus-button {
+.cart-minus-button, .cart-plus-button {
     background-color: #007bff;
     color: white;
     cursor: pointer;
@@ -590,8 +477,8 @@ main {
 }
 
 .cart-quantity {
-    border-color: #ccc; /* Lighter border for the quantity display */
-    background-color: #f8f8f8; /* Background color for differentiation */
+    border-color: #ccc;
+    background-color: #f8f8f8;
 }
 
 .empty-cart-message {
@@ -602,8 +489,8 @@ main {
     background: #fff;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    margin: 15px auto; /* Center it with some margin */
-    max-width: 400px; /* Narrow width for the empty message */
+    margin: 15px auto;
+    max-width: 400px;
 }
 
 .cart-options {
@@ -644,26 +531,21 @@ main {
     font-size: 0.9em;
 }
 
-
 .pickup-delivery-header {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    /*padding: 15px;*/
     background-color: #f8f8f8;
     cursor: pointer;
     border: 1px solid #e0e0e0;
     border-radius: 8px;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-    /*margin-bottom: 15px;*/
 }
 
-.cart-content,.pickup-delivery-content,
-.pickup-delivery-header {
-    max-width: 800px; /* Ensure this matches */
-    margin: 10px auto; /* Adjust margins as necessary to match */
-    padding: 10px 20px; /* Adjust paddings as necessary to match */
-    /* ...other styles... */
+.cart-content, .pickup-delivery-content, .pickup-delivery-header {
+    max-width: 800px;
+    margin: 10px auto;
+    padding: 10px 20px;
 }
 
 .pickup-delivery-header .header-title {
@@ -682,14 +564,13 @@ main {
 }
 
 .pickup-delivery-content {
-    display: flex;
+    display: none;
     justify-content: space-around;
     padding: 15px;
     background-color: #ffffff;
     border: 1px solid #e0e0e0;
     border-radius: 8px;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-    margin-bottom: 20px;
 }
 
 .option-card {
@@ -701,7 +582,7 @@ main {
     border: 1px solid #e0e0e0;
     background: #fff;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    width: calc(50% - 20px); /* Subtracting margin */
+    width: calc(50% - 20px);
     margin: 10px;
     cursor: pointer;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -716,15 +597,9 @@ main {
     margin-bottom: 10px;
 }
 
-.card-icon-container img {
-    width: 50px; /* Adjust as needed */
-    height: auto;
-}
-
 .card-icon-container i {
     font-size: 2em;
     color: #007bff;
-    margin-bottom: 10px;
 }
 
 .card-info h3 {
@@ -746,7 +621,6 @@ main {
     cursor: pointer;
 }
 
-/* Additional responsive adjustments */
 @media (max-width: 800px) {
     .pickup-delivery-content {
         flex-direction: column;
@@ -757,11 +631,12 @@ main {
         margin-bottom: 10px;
     }
 
-    .cart-hero h1,
-    .empty-cart-message,
-    .cart-item,
-    .cart-content {
+    .cart-hero h1, .empty-cart-message, .cart-item, .cart-content {
         padding: 10px;
         margin-bottom: 10px;
     }
 }
+
+
+
+
