@@ -31,7 +31,7 @@ exports.updateCartMapper = function (req, response) {
     if (itemExists) {
         updateQuantity = req.body.addToCart ? (req.body.quantity || 0) + 1 : req.body.quantity - 1
     } else {
-        updateQuantity = req.body.addToCart ? req.body.quantity || 0 : 0
+        updateQuantity = req.body.addToCart ? (req.body.quantity || 0) + 1 : 0
     }
 
     cartMapper.pid = req.body.pid

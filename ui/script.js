@@ -13,6 +13,7 @@ document.addEventListener('DOMContentLoaded', function () {
 function fetchProducts() {
     // Define the API endpoint
     const apiEndpoint = 'https://ecom-service-4eag.onrender.com/products';
+    // const apiEndpoint = 'http://localhost:8888/products';
 
     fetch(apiEndpoint)
         .then(response => {
@@ -98,6 +99,7 @@ function displayProducts(products) {
 // Function to update the cart via API call
 function updateCartAPI(pid, quantity, addToCart) {
     const apiEndPoint = "https://ecom-service-4eag.onrender.com/cart";
+    // const apiEndPoint = "http://localhost:8888/cart";
     const payload = {
         pid: pid,
         quantity: quantity,
@@ -143,6 +145,7 @@ function updateProductDisplay(productCard, product) {
 
 function fetchCartItems() {
     const apiEndpoint = 'https://ecom-service-4eag.onrender.com/cart';
+    // const apiEndpoint = 'http://localhost:8888/cart';
 
     fetch(apiEndpoint)
         .then(response => {
