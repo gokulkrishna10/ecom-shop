@@ -65,19 +65,15 @@ try {
 
 // FILE UPLOAD USING MULTER
 // Set up storage engine
-let storage
-try {
-    storage = multer.diskStorage({
-        destination: function (req, file, cb) {
-            cb(null, uploadDir)
-        },
-        filename: function (req, file, cb) {
-            cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname))
-        }
-    });
-} catch (error) {
-    console.log("Could not setup the storage disk directory - ", error)
-}
+
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, uploadDir)
+    },
+    filename: function (req, file, cb) {
+        cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname))
+    }
+});
 
 
 // Initialize upload
