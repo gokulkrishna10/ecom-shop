@@ -22,20 +22,11 @@ exports.addProducts = function (req) {
 }
 
 
-exports.updateCartMapper = function (req, response) {
+exports.updateCartMapper = function (req) {
     let cartMapper = {}
 
-    // check if the item in the request body exists in the cart table
-    let itemExists = response && response.length > 0 && response[0].quantity > 0
-    let updateQuantity;
-    if (itemExists) {
-        updateQuantity = req.body.addToCart ? (req.body.quantity || 0) + 1 : req.body.quantity - 1
-    } else {
-        updateQuantity = req.body.addToCart ? (req.body.quantity || 0) + 1 : 0
-    }
-
     cartMapper.pid = req.body.pid
-    cartMapper.quantity = updateQuantity
+    cartMapper.quantity = req.body.addToCart ? (req.body.quantity || 0) + 1 : req.body.quantity - 1
 
     return cartMapper
 }

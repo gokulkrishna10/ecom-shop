@@ -51,23 +51,9 @@ exports.getProducts = function (req, callback) {
     })
 }
 
-exports.getCartItem = function (req, callback) {
-    let options = {
-        sql: `select quantity from ${constants.db_tables['ECOMMERCE_CART']} where pid = ?`,
-        values: [req.body.pid]
-    }
 
-    db.queryWithOptions(options, (dbErr, dbResp) => {
-        if (dbErr) {
-            callback(dbErr, null)
-        } else {
-            callback(null, dbResp)
-        }
-    })
-}
-
-exports.updateCart = function (req, response, callback) {
-    let cartMapper = eComShopHelper.updateCartMapper(req, response)
+exports.updateCart = function (req, callback) {
+    let cartMapper = eComShopHelper.updateCartMapper(req)
 
     let options = {
         sql: `insert into ${constants.db_tables['ECOMMERCE_CART']} set ? ON DUPLICATE KEY UPDATE ?`,
