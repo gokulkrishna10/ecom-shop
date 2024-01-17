@@ -8,6 +8,11 @@ document.addEventListener('DOMContentLoaded', function () {
     if (window.location.pathname.endsWith('cart.html')) {
         fetchCartItems();
     }
+    //
+    // // Check if we're on the filtered product page
+    // if (window.location.pathname.endsWith('filtered-products.html')) {
+    //     fetchFilteredProducts();
+    // }
 });
 
 function fetchProducts() {
@@ -253,7 +258,7 @@ function displayCartItems(cartItems) {
     });
 }
 
-// This function is called to update the UI after a quantity change
+// This function is called to update only the UI after a quantity change
 function updateQuantityDisplay(cartItem, newQuantity) {
     const quantityText = cartItem.querySelector('.cart-quantity');
     quantityText.textContent = newQuantity;
