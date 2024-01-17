@@ -56,11 +56,7 @@ exports.getFilteredProducts = function (req, callback) {
         if (err) {
             callback(err, null)
         } else {
-            if (result) {
-                callback(null, result)
-            } else {
-                callback(null, {"status": "no-action", "msg": "no item of the input category found"})
-            }
+            callback(null, result)
         }
     })
 }

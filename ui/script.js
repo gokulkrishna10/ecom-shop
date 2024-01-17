@@ -1,19 +1,25 @@
 document.addEventListener('DOMContentLoaded', function () {
     // Check if we're on the products page
     if (window.location.pathname.endsWith('products.html')) {
-        fetchProducts();
+        // Extract category from URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const category = urlParams.get('category');
+
+        // Call fetchFilteredProducts() if category is present
+        if (category) {
+            fetchFilteredProducts(category);
+        } else {
+            fetchProducts();
+        }
+
     }
 
     // Check if we're on the cart page
     if (window.location.pathname.endsWith('cart.html')) {
         fetchCartItems();
     }
-    //
-    // // Check if we're on the filtered product page
-    // if (window.location.pathname.endsWith('filtered-products.html')) {
-    //     fetchFilteredProducts();
-    // }
 });
+
 
 function fetchProducts() {
     // Define the API endpoint
@@ -21,6 +27,27 @@ function fetchProducts() {
     // const apiEndpoint = 'http://localhost:8888/products';
 
     fetch(apiEndpoint)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Failed to get products');
+            }
+            return response.json();
+        })
+        .then(products => displayProducts(products))
+        .catch(error => console.error('Error:', error));
+}
+
+function fetchFilteredProducts(category) {
+    // Define the API endpoint
+    const apiEndpoint = `https://ecom-service-4eag.onrender.com/products`+`?category=${encodeURIComponent(category)}`;
+    // const apiEndpoint = `http://localhost:8888/filtered-products` + `?category=${encodeURIComponent(category)}`;
+
+    fetch(apiEndpoint, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+        }
+    })
         .then(response => {
             if (!response.ok) {
                 throw new Error('Failed to get products');
