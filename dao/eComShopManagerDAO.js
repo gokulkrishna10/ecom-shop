@@ -117,10 +117,8 @@ exports.getFilteredProducts = function (req, callback) {
                     // Convert binary data of file to Base64 string
                     obj.prod_image = obj.prod_image.toString('base64');
                 }
-                callback(null, dbResp)
-            } else {
-                callback(null, null)
             }
+            callback(null, dbResp)
         }
     })
 }
