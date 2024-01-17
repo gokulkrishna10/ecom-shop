@@ -41,3 +41,13 @@ exports.getCartItems = function (req, res) {
         }
     })
 }
+
+exports.getFilteredProducts = function (req, res) {
+    eComShop.getFilteredProducts(req, (err, response) => {
+        if (err) {
+            res.status(err.code ? err.code : 500).send(err)
+        } else {
+            res.status(200).send(response)
+        }
+    })
+}

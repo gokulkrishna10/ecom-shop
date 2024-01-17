@@ -84,6 +84,9 @@ router.post('/products', upload.array('prod_image', constants.maxInputFileCount)
 //get all products
 router.get('/products', routes.getProducts)
 
+//get products by filter
+router.get('/filtered-products', eComShopValidator.validateGetFilteredProducts, routes.getFilteredProducts)
+
 //update cart
 router.put('/cart', eComShopValidator.validateUpdateCart, routes.updateCart)
 
