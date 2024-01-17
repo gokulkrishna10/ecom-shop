@@ -46,4 +46,15 @@ exports.validateUpdateCart = function (req, res, next) {
     }
 }
 
+exports.validateGetFilteredProducts = function (req, res, next) {
+    let err = null;
+
+    if (util.isNull(req.query.category)) {
+        err = customError.BadRequest("request needs a category")
+        next(err)
+    } else {
+        next()
+    }
+}
+
 

@@ -49,3 +49,18 @@ exports.getCartItems = function (req, callback) {
         }
     })
 }
+
+
+exports.getFilteredProducts = function (req, callback) {
+    eComShopDao.getFilteredProducts(req, (err, result) => {
+        if (err) {
+            callback(err, null)
+        } else {
+            if (result) {
+                callback(null, result)
+            } else {
+                callback(null, {"status": "no-action", "msg": "no item of the input category found"})
+            }
+        }
+    })
+}

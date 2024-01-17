@@ -96,3 +96,31 @@ exports.getCartItems = function (req, callback) {
         }
     })
 }
+
+
+exports.getFilteredProducts = function (req, callback) {
+    let category = req.query.category.toLowerCase()
+
+    let options = {
+        sql: `SELECT pd.pid,pd.prod_name,pd.price,pd.short_description,pd.category,pd.prod_image,COALESCE(ct.quantity, 0) as quantity
+              FROM ${constants.db_tables['ECOMMERCE_PRODUCTS']} pd 
+              LEFT JOIN ${constants.db_tables['ECOMMERCE_CART']} ct on pd.pid = ct.pid 
+              WHERE pd.category = '${category}';`
+    }
+
+    db.queryWithOptions(options, (dbErr, dbResp) => {
+        if (dbErr) {
+            callback(dbErr, null)
+        } else {
+            if (dbResp && dbResp.length > 0) {
+                for (const obj of dbResp) {
+                    // Convert binary data of file to Base64 string
+                    obj.prod_image = obj.prod_image.toString('base64');
+                }
+                callback(null, dbResp)
+            } else {
+                callback(null, null)
+            }
+        }
+    })
+}
