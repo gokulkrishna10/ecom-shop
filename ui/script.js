@@ -39,7 +39,7 @@ function fetchProducts() {
 
 function fetchFilteredProducts(category) {
     // Define the API endpoint
-    const apiEndpoint = `https://ecom-service-4eag.onrender.com/products`+`?category=${encodeURIComponent(category)}`;
+    const apiEndpoint = `https://ecom-service-4eag.onrender.com/filtered-products`+`?category=${encodeURIComponent(category)}`;
     // const apiEndpoint = `http://localhost:8888/filtered-products` + `?category=${encodeURIComponent(category)}`;
 
     fetch(apiEndpoint, {
