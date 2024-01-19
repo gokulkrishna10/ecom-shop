@@ -11,7 +11,6 @@ document.addEventListener('DOMContentLoaded', function () {
         } else {
             fetchProducts();
         }
-
     }
 
     // Check if we're on the cart page
@@ -20,11 +19,18 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 });
 
+function getApiBaseUrl() {
+    const hostname = window.location.hostname;
+    if (hostname === "localhost" || hostname === "127.0.0.1") {
+        return `http://localhost:8888`;
+    } else {
+        return `https://ecom-service-4eag.onrender.com`;
+    }
+}
 
 function fetchProducts() {
     // Define the API endpoint
-    const apiEndpoint = 'https://ecom-service-4eag.onrender.com/products';
-    // const apiEndpoint = 'http://localhost:8888/products';
+    const apiEndpoint = `${getApiBaseUrl()}/products`;
 
     fetch(apiEndpoint)
         .then(response => {
@@ -39,8 +45,7 @@ function fetchProducts() {
 
 function fetchFilteredProducts(category) {
     // Define the API endpoint
-    const apiEndpoint = `https://ecom-service-4eag.onrender.com/filtered-products` + `?category=${encodeURIComponent(category)}`;
-    // const apiEndpoint = `http://localhost:8888/filtered-products` + `?category=${encodeURIComponent(category)}`;
+    const apiEndpoint = `${getApiBaseUrl()}/filtered-products` + `?category=${encodeURIComponent(category)}`;
 
     fetch(apiEndpoint, {
         method: 'GET',
@@ -130,8 +135,8 @@ function displayProducts(products) {
 
 // Function to update the cart via API call
 function updateCartAPI(pid, quantity, addToCart) {
-    const apiEndPoint = "https://ecom-service-4eag.onrender.com/cart";
-    // const apiEndPoint = "http://localhost:8888/cart";
+    const apiEndPoint = `${getApiBaseUrl()}/cart`;
+
     const payload = {
         pid: pid,
         quantity: quantity,
@@ -176,8 +181,7 @@ function updateProductDisplay(productCard, product) {
 
 
 function fetchCartItems() {
-    const apiEndpoint = 'https://ecom-service-4eag.onrender.com/cart';
-    // const apiEndpoint = 'http://localhost:8888/cart';
+    const apiEndpoint = `${getApiBaseUrl()}/cart`;
 
     fetch(apiEndpoint)
         .then(response => {
@@ -250,7 +254,6 @@ function displayCartItems(cartItems) {
             } else {
                 cartContent.removeChild(cartItem); // Remove the cart item from the UI
             }
-            // display the reduced quantity in the UI
         };
 
         // Create a span that displays the current quantity of the item
