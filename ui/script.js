@@ -39,7 +39,7 @@ function fetchProducts() {
 
 function fetchFilteredProducts(category) {
     // Define the API endpoint
-    const apiEndpoint = `https://ecom-service-4eag.onrender.com/filtered-products`+`?category=${encodeURIComponent(category)}`;
+    const apiEndpoint = `https://ecom-service-4eag.onrender.com/filtered-products` + `?category=${encodeURIComponent(category)}`;
     // const apiEndpoint = `http://localhost:8888/filtered-products` + `?category=${encodeURIComponent(category)}`;
 
     fetch(apiEndpoint, {
@@ -209,6 +209,8 @@ function displayCartItems(cartItems) {
         // Create a div to hold the cart item details
         const cartItem = document.createElement('div');
         cartItem.className = 'cart-item';
+
+        // associate every item with the id from db response
         cartItem.setAttribute('product_id', item.pid); // Store product id for potential use
 
         // Create an image element and set its source and alt text
@@ -244,7 +246,7 @@ function displayCartItems(cartItems) {
             updateCartAPI(item.pid, item.quantity, 0); // Remove from cart
             if (item.quantity > 1) {
                 item.quantity -= 1;
-                updateQuantityDisplay(cartItem, item.quantity); // Update the quantity in the UI
+                updateQuantityDisplay(cartItem, item.quantity, item.price); // Update the quantity in the UI
             } else {
                 cartContent.removeChild(cartItem); // Remove the cart item from the UI
             }
@@ -263,7 +265,7 @@ function displayCartItems(cartItems) {
         plusButton.onclick = function () {
             updateCartAPI(item.pid, item.quantity, 1); // Add to cart
             item.quantity = (item.quantity || 0) + 1;
-            updateQuantityDisplay(cartItem, item.quantity); // Update the quantity in the UI
+            updateQuantityDisplay(cartItem, item.quantity, item.price); // Update the quantity in the UI
         };
 
         // Append the minus button, quantity text, and plus button to the quantity controls container
@@ -286,9 +288,11 @@ function displayCartItems(cartItems) {
 }
 
 // This function is called to update only the UI after a quantity change
-function updateQuantityDisplay(cartItem, newQuantity) {
+function updateQuantityDisplay(cartItem, newQuantity, unitProductPrice) {
     const quantityText = cartItem.querySelector('.cart-quantity');
     quantityText.textContent = newQuantity;
+    const priceText = cartItem.querySelector('.cart-item-price');
+    priceText.textContent = `$${unitProductPrice * newQuantity}`;
 }
 
 
