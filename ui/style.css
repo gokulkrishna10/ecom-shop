@@ -415,6 +415,7 @@ main {
 
 .cart-content {
     background-color: rgba(255, 255, 255, 0.5);
+    /*background-color: lightslategray;*/
     backdrop-filter: blur(5px);
     padding: 10px;
     border-radius: 8px;
@@ -638,5 +639,116 @@ main {
 }
 
 
+.content-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+/* Shared styles for pickup-delivery-content and cart-content */
+.pickup-delivery-content,
+.cart-content {
+    flex-grow: 1;
+    background-color: rgba(255, 255, 255, 0.5);
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin-top: 10px;
+}
+
+.pickup-delivery-content {
+    display: none; /* Hidden by default, shown when toggle button is clicked */
+}
+
+/* Info Card Container */
+.info-card-container {
+    width: 300px; /* Fixed width for the info card */
+    margin-left: 20px;
+    position: sticky;
+    top: 20px;
+}
+
+/* Info Card Styling */
+.info-card {
+    margin-top: 0; /* Align the top with the top of the cart content */
+    margin-right: 10px;
+    background-color: #fff; /* White background */
+    border: 1px solid #ddd; /* Light grey border */
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    padding: 20px; /* Padding inside the card */
+    position: sticky; /* Optional: Set to stick while scrolling */
+    top: 20px; /* Distance from the top when scrolling */
+}
+
+.info-card-title {
+    color: #333;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #e0e0e0;
+    font-size: 1.5em;
+    text-align: center;
+}
+
+.info-card-body,
+.info-card-item {
+    font-size: 0.95em;
+}
+
+.info-card-item {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.info-card-item-label {
+    font-weight: bold;
+}
+
+.info-card-footer {
+    margin-top: 20px;
+}
+
+.info-card-checkout-btn {
+    background-color: #007bff;
+    color: white;
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+    text-transform: uppercase;
+}
+
+.info-card-checkout-btn:hover {
+    background-color: #0056b3;
+}
+
+/* Specific style for cart-content to adjust the margin */
+.cart-content {
+    margin-left: 340px; /* Adjust the value as needed */
+}
+
+/* Responsive Design */
+@media (max-width: 800px) {
+    .content-wrapper {
+        flex-direction: column;
+    }
+
+    .info-card-container {
+        order: -1; /* Info card above the cart content on smaller screens */
+        width: 100%;
+        margin-left: 0;
+        margin-bottom: 20px;
+    }
+
+    .pickup-delivery-content,
+    .cart-content {
+        width: 100%;
+        margin-left: 0; /* Reset margin for smaller screens */
+    }
+}
 
 
