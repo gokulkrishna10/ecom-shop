@@ -667,6 +667,7 @@ main {
     margin-left: 20px;
     position: sticky;
     top: 20px;
+    display: none;
 }
 
 /* Info Card Styling */

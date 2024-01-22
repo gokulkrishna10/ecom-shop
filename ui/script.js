@@ -199,6 +199,7 @@ function displayCartItems(cartItems) {
     // Select the container where cart items will be displayed
     const cartContent = document.querySelector('.cart-content');
     cartContent.innerHTML = ''; // Clear existing cart items before adding new ones
+
     if (cartItems.length === 0) {
         const emptyCartMessage = document.createElement('div');
         emptyCartMessage.className = 'empty-cart-message';
@@ -206,6 +207,9 @@ function displayCartItems(cartItems) {
         cartContent.appendChild(emptyCartMessage);
         return
     }
+
+    const infoCardContainer = document.querySelector('.info-card-container'); // Select the info card container
+    infoCardContainer.style.display = 'block'; // Hide the info card container when cart is empty
 
     let subtotal = 0
 
