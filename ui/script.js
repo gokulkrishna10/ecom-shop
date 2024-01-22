@@ -16,7 +16,8 @@ document.addEventListener('DOMContentLoaded', function () {
     // Check if we're on the cart page
     if (window.location.pathname.endsWith('cart.html')) {
         fetchCartItems();
-        setupToggleOptionsListener(); // Set up toggle options on the cart page
+        setupToggleOptionsListener(); // Set up toggle options of the collapsible section on the cart page
+        setupCardSelectionListeners();
     }
 });
 
@@ -339,6 +340,7 @@ function updateQuantityDisplay(cartItem, newQuantity, unitProductPrice) {
 }
 
 
+// function to handle the collapsible section on the cart page
 function setupToggleOptionsListener() {
     // Attach the click event listener to the toggle button after the DOM is fully loaded
     document.getElementById('toggleOptions').addEventListener('click', function () {
@@ -353,4 +355,40 @@ function setupToggleOptionsListener() {
         // Toggle the button icon
         button.innerHTML = isExpanded ? '<i class="fas fa-chevron-down"></i>' : '<i class="fas fa-chevron-up"></i>';
     });
+}
+
+function setupCardSelectionListeners() {
+    const pickupCard = document.getElementById('pickupCard');
+    const deliveryCard = document.getElementById('deliveryCard');
+
+    pickupCard.addEventListener('click', function () {
+        toggleSelection(this, deliveryCard);
+    });
+
+    deliveryCard.addEventListener('click', function () {
+        toggleSelection(this, pickupCard);
+    });
+}
+
+function toggleSelection(selectedCard, otherCard) {
+    if (selectedCard.classList.contains('selected-option')) {
+        // Deselect if already selected
+        selectedCard.classList.remove('selected-option');
+    } else {
+        // Select this and deselect the other
+        selectedCard.classList.add('selected-option');
+        otherCard.classList.remove('selected-option');
+    }
+    // Call a function to handle the new selection state
+    handleSelectionState();
+}
+
+function handleSelectionState() {
+    const isPickupSelected = document.getElementById('pickupCard').classList.contains('selected-option');
+    const isDeliverySelected = document.getElementById('deliveryCard').classList.contains('selected-option');
+
+    // Use the selection state in your computations
+    // For example:
+    console.log('Pickup selected:', isPickupSelected);
+    console.log('Delivery selected:', isDeliverySelected);
 }

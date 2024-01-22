@@ -752,4 +752,7 @@ main {
     }
 }
 
-
+.selected-option {
+    border: 2px solid #007bff; /* Highlight color */
+    background-color: #e6f7ff; /* Light background */
+}
