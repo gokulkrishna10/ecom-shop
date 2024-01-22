@@ -16,6 +16,7 @@ document.addEventListener('DOMContentLoaded', function () {
     // Check if we're on the cart page
     if (window.location.pathname.endsWith('cart.html')) {
         fetchCartItems();
+        setupToggleOptionsListener(); // Set up toggle options on the cart page
     }
 });
 
@@ -158,11 +159,9 @@ function updateCartAPI(pid, quantity, addToCart) {
         })
         .then(data => {
             console.log(data);
-            // Handle success - update UI or show message
         })
         .catch((error) => {
             console.error(error);
-            // Handle error - update UI or show error message
         });
 }
 
@@ -208,6 +207,8 @@ function displayCartItems(cartItems) {
         return
     }
 
+    let subtotal = 0
+
     // Loop over each item in the cart
     cartItems.forEach(item => {
         // Create a div to hold the cart item details
@@ -227,11 +228,6 @@ function displayCartItems(cartItems) {
         const itemName = document.createElement('h3');
         itemName.className = 'cart-item-name';
         itemName.textContent = item.prod_name; // Set the text content to the product name
-
-        // Create a paragraph for the item price
-        const itemPrice = document.createElement('p');
-        itemPrice.className = 'cart-item-price';
-        itemPrice.textContent = `$${item.price}`; // Set the text content to the product price
 
         // Create a container for the item quantity controls
         const itemQuantityContainer = document.createElement('div');
@@ -254,12 +250,18 @@ function displayCartItems(cartItems) {
             } else {
                 cartContent.removeChild(cartItem); // Remove the cart item from the UI
             }
+            updateOrderSummary() // update the order summary
         };
 
         // Create a span that displays the current quantity of the item
         const quantityText = document.createElement('span');
         quantityText.className = 'cart-quantity';
         quantityText.textContent = item.quantity; // Set the text content to the current quantity
+
+        // Create a paragraph for the item price and multiply it by quantity to always get the price of a product in the cart page based on its quantity
+        const itemPrice = document.createElement('p');
+        itemPrice.className = 'cart-item-price';
+        itemPrice.textContent = `$${item.price * item.quantity}`; // Set the text content to the product price
 
         // Create a button to increase the item quantity
         const plusButton = document.createElement('button');
@@ -269,6 +271,7 @@ function displayCartItems(cartItems) {
             updateCartAPI(item.pid, item.quantity, 1); // Add to cart
             item.quantity = (item.quantity || 0) + 1;
             updateQuantityDisplay(cartItem, item.quantity, item.price); // Update the quantity in the UI
+            updateOrderSummary() // update the order summary
         };
 
         // Append the minus button, quantity text, and plus button to the quantity controls container
@@ -287,8 +290,41 @@ function displayCartItems(cartItems) {
 
         // Finally, append the cart item div to the cart content container in the DOM
         cartContent.appendChild(cartItem);
+
+        // Calculate the subtotal
+        subtotal += item.price * item.quantity
     });
+    getOrderSummary(subtotal)
 }
+
+function getOrderSummary(subtotal) {
+    let tax = subtotal * 0.1
+    let total = subtotal + tax
+
+    // Update the subtotal, tax, and total in the DOM
+    document.getElementById('subtotal').textContent = `$${subtotal.toFixed(2)}`;
+    document.getElementById('tax').textContent = `$${tax.toFixed(2)}`;
+    document.getElementById('total').textContent = `$${total.toFixed(2)}`;
+}
+
+function updateOrderSummary() {
+    let subtotal = 0
+    const cartItems = document.querySelectorAll('.cart-item')
+
+    cartItems.forEach(item => {
+        const price = parseFloat(item.querySelector('.cart-item-price').textContent.replace('$', ''))
+        subtotal += price
+    })
+
+    const tax = 0.1 * subtotal
+    const total = subtotal + tax
+
+    // Update the subtotal, tax, and total in the DOM
+    document.getElementById('subtotal').textContent = `$${subtotal.toFixed(2)}`;
+    document.getElementById('tax').textContent = `$${tax.toFixed(2)}`;
+    document.getElementById('total').textContent = `$${total.toFixed(2)}`;
+}
+
 
 // This function is called to update only the UI after a quantity change
 function updateQuantityDisplay(cartItem, newQuantity, unitProductPrice) {
@@ -299,7 +335,7 @@ function updateQuantityDisplay(cartItem, newQuantity, unitProductPrice) {
 }
 
 
-document.addEventListener('DOMContentLoaded', function () {
+function setupToggleOptionsListener() {
     // Attach the click event listener to the toggle button after the DOM is fully loaded
     document.getElementById('toggleOptions').addEventListener('click', function () {
         let content = document.getElementById('pickupDeliveryOptions');
@@ -313,4 +349,4 @@ document.addEventListener('DOMContentLoaded', function () {
         // Toggle the button icon
         button.innerHTML = isExpanded ? '<i class="fas fa-chevron-down"></i>' : '<i class="fas fa-chevron-up"></i>';
     });
-});
+}
