@@ -411,7 +411,53 @@ function setupCheckoutButton() {
 
     if (checkoutButton) {
         checkoutButton.addEventListener('click', function () {
-            // call the delete cart api here to remove the item from the cart to mock the cart checkout functionality
+            // call removeCartItems api to mock the cart checkout functionality
+            const apiEndPoint = `${getApiBaseUrl()}/cart-items`;
+
+            fetch(apiEndPoint, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                }
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    console.log(data);
+                    clearCartItems() // clear cart items to mock cart checkout functionality
+                })
+                .catch((error) => {
+                    console.error(error);
+                });
         })
+    }
+}
+
+// clear the cart items
+function clearCartItems() {
+    const cartContent = document.querySelector('.cart-content');
+    cartContent.innerHTML = ''; // Clear existing cart items before adding new ones
+    const emptyCartMessage = document.createElement('div');
+    emptyCartMessage.className = 'empty-cart-message';
+    emptyCartMessage.textContent = 'Your cart is empty. Start shopping now!';
+    cartContent.appendChild(emptyCartMessage);
+    // open the checkout successful dialog box
+    document.getElementById('checkoutDialog').style.display = 'block'
+}
+
+// Close the dialog when the user clicks on <span> (x)
+document.querySelector('.close-dialog').addEventListener('click', function () {
+    document.getElementById('checkoutDialog').style.display = 'none'
+})
+
+// Close the dialog when the user clicks anywhere outside the dialog
+window.onclick = function (event) {
+    const dialog = document.getElementById('checkoutDialog')
+    if (event.target === dialog) {
+        dialog.style.display = 'none'
     }
 }
