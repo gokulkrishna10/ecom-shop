@@ -203,10 +203,7 @@ function displayCartItems(cartItems) {
     cartContent.innerHTML = ''; // Clear existing cart items before adding new ones
 
     if (cartItems.length === 0) {
-        const emptyCartMessage = document.createElement('div');
-        emptyCartMessage.className = 'empty-cart-message';
-        emptyCartMessage.textContent = 'Your cart is empty. Start shopping now!';
-        cartContent.appendChild(emptyCartMessage);
+        showEmptyCart() // show the empty cart in the UI
         return
     }
 
@@ -428,7 +425,9 @@ function setupCheckoutButton() {
                 })
                 .then(data => {
                     console.log(data);
-                    clearCartItems() // clear cart items to mock cart checkout functionality
+                    showEmptyCart() // clear cart items to mock cart checkout functionality
+                    // display the checkout successful dialog box
+                    document.getElementById('checkoutDialog').style.display = 'block'
                 })
                 .catch((error) => {
                     console.error(error);
@@ -438,15 +437,13 @@ function setupCheckoutButton() {
 }
 
 // clear the cart items
-function clearCartItems() {
+function showEmptyCart() {
     const cartContent = document.querySelector('.cart-content');
     cartContent.innerHTML = ''; // Clear existing cart items before adding new ones
     const emptyCartMessage = document.createElement('div');
     emptyCartMessage.className = 'empty-cart-message';
     emptyCartMessage.textContent = 'Your cart is empty. Start shopping now!';
     cartContent.appendChild(emptyCartMessage);
-    // open the checkout successful dialog box
-    document.getElementById('checkoutDialog').style.display = 'block'
 }
 
 // Close the dialog when the user clicks on <span> (x)
