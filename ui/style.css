@@ -756,3 +756,30 @@ main {
     border: 2px solid #007bff; /* Highlight color */
     background-color: #e6f7ff; /* Light background */
 }
+
+
+.delivery-option-wrapper {
+    position: relative; /* Make this a reference point for positioning */
+}
+
+.selected-option-display {
+    text-align: center;
+    display: none; /* Hidden by default */
+    position: absolute; /* Position relative to the wrapper */
+    top: -25px; /* Adjust as needed */
+    left: 0; /* Adjust as needed */
+    right: 770px; /* Adjust to center */
+    margin-bottom: 10px;
+}
+
+/* Style for the text within the selected option display */
+#selectedOption {
+    font-weight: bold;
+    background-color: #007bff; /* Highlight color */
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* Wrapper for the pickup-delivery-header and selected-option-display */

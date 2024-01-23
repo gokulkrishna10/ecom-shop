@@ -15,9 +15,10 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Check if we're on the cart page
     if (window.location.pathname.endsWith('cart.html')) {
-        fetchCartItems();
+        fetchCartItems(); // fetch all the cart items
         setupToggleOptionsListener(); // Set up toggle options of the collapsible section on the cart page
-        setupCardSelectionListeners();
+        setupCardSelectionListeners(); // Set up the pickup and delivery card options
+        setupCheckoutButton() // Set up the checkout button
     }
 });
 
@@ -386,9 +387,31 @@ function toggleSelection(selectedCard, otherCard) {
 function handleSelectionState() {
     const isPickupSelected = document.getElementById('pickupCard').classList.contains('selected-option');
     const isDeliverySelected = document.getElementById('deliveryCard').classList.contains('selected-option');
+    const selectedOptionElement = document.getElementById('selectedOptionDisplay')
+    const selectedOption = document.getElementById('selectedOption')
 
-    // Use the selection state in your computations
-    // For example:
+    // Use the selection state to highlight it outside the collapsible section
+    selectedOptionElement.style.display = 'block'
+    selectedOption.textContent = ''
+    if (isPickupSelected) {
+        selectedOption.textContent = 'Pickup'
+    } else if (isDeliverySelected) {
+        selectedOption.textContent = 'Delivery'
+    } else {
+        selectedOptionElement.style.display = 'none'
+    }
+
     console.log('Pickup selected:', isPickupSelected);
     console.log('Delivery selected:', isDeliverySelected);
+}
+
+function setupCheckoutButton() {
+    // Setup event listener for the checkout button
+    const checkoutButton = document.querySelector('.info-card-checkout-btn');
+
+    if (checkoutButton) {
+        checkoutButton.addEventListener('click', function () {
+            // call the delete cart api here to clear the cart and mock the cart checkout functionality
+        })
+    }
 }
