@@ -15,8 +15,10 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Check if we're on the cart page
     if (window.location.pathname.endsWith('cart.html')) {
-        fetchCartItems();
-        setupToggleOptionsListener(); // Set up toggle options on the cart page
+        fetchCartItems(); // fetch all the cart items
+        setupToggleOptionsListener(); // Set up toggle options of the collapsible section on the cart page
+        setupCardSelectionListeners(); // Set up the pickup and delivery card options
+        setupCheckoutButton() // Set up the checkout button
     }
 });
 
@@ -199,13 +201,14 @@ function displayCartItems(cartItems) {
     // Select the container where cart items will be displayed
     const cartContent = document.querySelector('.cart-content');
     cartContent.innerHTML = ''; // Clear existing cart items before adding new ones
+
     if (cartItems.length === 0) {
-        const emptyCartMessage = document.createElement('div');
-        emptyCartMessage.className = 'empty-cart-message';
-        emptyCartMessage.textContent = 'Your cart is empty. Start shopping now!';
-        cartContent.appendChild(emptyCartMessage);
+        showEmptyCart() // show the empty cart in the UI
         return
     }
+
+    const infoCardContainer = document.querySelector('.info-card-container'); // Select the info card container
+    infoCardContainer.style.display = 'block'; // Hide the info card container when cart is empty
 
     let subtotal = 0
 
@@ -335,6 +338,7 @@ function updateQuantityDisplay(cartItem, newQuantity, unitProductPrice) {
 }
 
 
+// function to handle the collapsible section on the cart page
 function setupToggleOptionsListener() {
     // Attach the click event listener to the toggle button after the DOM is fully loaded
     document.getElementById('toggleOptions').addEventListener('click', function () {
@@ -349,4 +353,108 @@ function setupToggleOptionsListener() {
         // Toggle the button icon
         button.innerHTML = isExpanded ? '<i class="fas fa-chevron-down"></i>' : '<i class="fas fa-chevron-up"></i>';
     });
+}
+
+function setupCardSelectionListeners() {
+    const pickupCard = document.getElementById('pickupCard');
+    const deliveryCard = document.getElementById('deliveryCard');
+
+    pickupCard.addEventListener('click', function () {
+        toggleSelection(this, deliveryCard);
+    });
+
+    deliveryCard.addEventListener('click', function () {
+        toggleSelection(this, pickupCard);
+    });
+}
+
+function toggleSelection(selectedCard, otherCard) {
+    if (selectedCard.classList.contains('selected-option')) {
+        // Deselect if already selected
+        selectedCard.classList.remove('selected-option');
+    } else {
+        // Select this and deselect the other
+        selectedCard.classList.add('selected-option');
+        otherCard.classList.remove('selected-option');
+    }
+    // Call a function to handle the new selection state
+    handleSelectionState();
+}
+
+function handleSelectionState() {
+    const isPickupSelected = document.getElementById('pickupCard').classList.contains('selected-option');
+    const isDeliverySelected = document.getElementById('deliveryCard').classList.contains('selected-option');
+    const selectedOptionElement = document.getElementById('selectedOptionDisplay')
+    const selectedOption = document.getElementById('selectedOption')
+
+    // Use the selection state to highlight it outside the collapsible section
+    selectedOptionElement.style.display = 'block'
+    selectedOption.textContent = ''
+    if (isPickupSelected) {
+        selectedOption.textContent = 'Pickup'
+    } else if (isDeliverySelected) {
+        selectedOption.textContent = 'Delivery'
+    } else {
+        selectedOptionElement.style.display = 'none'
+    }
+
+    console.log('Pickup selected:', isPickupSelected);
+    console.log('Delivery selected:', isDeliverySelected);
+}
+
+function setupCheckoutButton() {
+    // Setup event listener for the checkout button
+    const checkoutButton = document.querySelector('.info-card-checkout-btn');
+
+    if (checkoutButton) {
+        checkoutButton.addEventListener('click', function () {
+            // call removeCartItems api to mock the cart checkout functionality
+            const apiEndPoint = `${getApiBaseUrl()}/cart-items`;
+
+            fetch(apiEndPoint, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                }
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    console.log(data);
+                    showEmptyCart() // clear cart items to mock cart checkout functionality
+                    // display the checkout successful dialog box
+                    document.getElementById('checkoutDialog').style.display = 'block'
+                })
+                .catch((error) => {
+                    console.error(error);
+                });
+        })
+    }
+}
+
+// clear the cart items
+function showEmptyCart() {
+    const cartContent = document.querySelector('.cart-content');
+    cartContent.innerHTML = ''; // Clear existing cart items before adding new ones
+    const emptyCartMessage = document.createElement('div');
+    emptyCartMessage.className = 'empty-cart-message';
+    emptyCartMessage.textContent = 'Your cart is empty. Start shopping now!';
+    cartContent.appendChild(emptyCartMessage);
+}
+
+// Close the dialog when the user clicks on <span> (x)
+document.querySelector('.close-dialog').addEventListener('click', function () {
+    document.getElementById('checkoutDialog').style.display = 'none'
+})
+
+// Close the dialog when the user clicks anywhere outside the dialog
+window.onclick = function (event) {
+    const dialog = document.getElementById('checkoutDialog')
+    if (event.target === dialog) {
+        dialog.style.display = 'none'
+    }
 }

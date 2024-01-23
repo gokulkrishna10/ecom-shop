@@ -14,6 +14,7 @@ exports.addProducts = function (req, callback) {
         })
     }
 
+    // I want the queries to be executed in parallel. Hence, isTransaction is true
     db.executeMultipleWithOptions(options, true, (dbErr, dbResp) => {
         if (dbErr) {
             callback(dbErr, null)
@@ -119,6 +120,30 @@ exports.getFilteredProducts = function (req, callback) {
                 }
             }
             callback(null, dbResp)
+        }
+    })
+}
+
+
+exports.removeCartItems = function (req, callback) {
+    let options = [{
+        sql: `SET SQL_SAFE_UPDATES = 0;`
+    }, {
+        sql: `update ${constants.db_tables['ECOMMERCE_CART']} set quantity = 0 where quantity > 0; `
+    }, {
+        sql: `SET SQL_SAFE_UPDATES = 1;`
+    }]
+
+    // I want the queries to be executed sequentially. Hence, isTransaction is false
+    db.executeMultipleWithOptions(options, false, (dbErr, dbResp) => {
+        if (dbErr) {
+            callback(dbErr, null)
+        } else {
+            if (dbResp[1].affectedRows > 1) {
+                callback(null, dbResp)
+            } else {
+                callback(null, null)
+            }
         }
     })
 }

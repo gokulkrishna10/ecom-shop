@@ -667,6 +667,7 @@ main {
     margin-left: 20px;
     position: sticky;
     top: 20px;
+    display: none;
 }
 
 /* Info Card Styling */
@@ -751,4 +752,117 @@ main {
     }
 }
 
+.selected-option {
+    border: 2px solid #007bff; /* Highlight color */
+    background-color: #e6f7ff; /* Light background */
+}
 
+
+.delivery-option-wrapper {
+    position: relative; /* Make this a reference point for positioning */
+}
+
+.selected-option-display {
+    text-align: center;
+    display: none; /* Hidden by default */
+    position: absolute; /* Position relative to the wrapper */
+    top: -25px; /* Adjust as needed */
+    left: 0; /* Adjust as needed */
+    right: 770px; /* Adjust to center */
+    margin-bottom: 10px;
+}
+
+/* Style for the text within the selected option display */
+#selectedOption {
+    font-weight: bold;
+    background-color: #007bff; /* Highlight color */
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* Wrapper for the pickup-delivery-header and selected-option-display */
+
+
+/* Dialog Box Styles */
+.checkout-dialog {
+    display: none;
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    z-index: 1001;
+    /*display: flex;*/
+    align-items: center;
+    justify-content: center;
+}
+
+.checkout-dialog-content {
+    background-color: #1a1a2e;
+    color: #e94560;
+    margin: auto;
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    width: 30%;
+    position: relative;
+    text-align: center;
+    animation: slideDown 0.5s ease-out;
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.close-dialog {
+    position: absolute;
+    right: 15px;
+    top: 15px;
+    color: #e94560;
+    font-size: 30px;
+    font-weight: bold;
+    cursor: pointer;
+    background: transparent;
+    border: none;
+}
+
+.close-dialog:hover,
+.close-dialog:focus {
+    color: #fff;
+}
+
+.dialog-message {
+    font-size: 20px;
+    margin-bottom: 20px;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 500;
+}
+
+.confirmation-button {
+    padding: 12px 25px;
+    background-color: #e94560;
+    color: #fff;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-size: 16px;
+    letter-spacing: 1px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    font-family: 'Poppins', sans-serif;
+}
+
+.confirmation-button:hover {
+    background-color: #0f3460;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+}
