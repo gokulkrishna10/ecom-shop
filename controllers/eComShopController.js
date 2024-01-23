@@ -60,3 +60,17 @@ exports.getFilteredProducts = function (req, callback) {
         }
     })
 }
+
+exports.removeCartItems = function (req, callback) {
+    eComShopDao.removeCartItems(req, (err, result) => {
+        if (err) {
+            callback(err, null)
+        } else {
+            if (result) {
+                callback(null, {'status': "success", "msg": "Items removed from the cart successfully"})
+            } else {
+                callback(null, {"status": "no-action", "msg": "No items to remove. Your cart is empty!"})
+            }
+        }
+    })
+}

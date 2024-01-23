@@ -411,7 +411,7 @@ function setupCheckoutButton() {
 
     if (checkoutButton) {
         checkoutButton.addEventListener('click', function () {
-            // call the delete cart api here to clear the cart and mock the cart checkout functionality
+            // call the delete cart api here to remove the item from the cart to mock the cart checkout functionality
         })
     }
 }
