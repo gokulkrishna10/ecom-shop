@@ -19,6 +19,7 @@ document.addEventListener('DOMContentLoaded', function () {
         setupToggleOptionsListener(); // Set up toggle options of the collapsible section on the cart page
         setupCardSelectionListeners(); // Set up the pickup and delivery card options
         setupCheckoutButton() // Set up the checkout button
+        setupDialogCloseListener() // Set up the close button in the dialog box
     }
 });
 
@@ -51,8 +52,7 @@ function fetchFilteredProducts(category) {
     const apiEndpoint = `${getApiBaseUrl()}/filtered-products` + `?category=${encodeURIComponent(category)}`;
 
     fetch(apiEndpoint, {
-        method: 'GET',
-        headers: {
+        method: 'GET', headers: {
             'Content-Type': 'application/json',
         }
     })
@@ -141,17 +141,13 @@ function updateCartAPI(pid, quantity, addToCart) {
     const apiEndPoint = `${getApiBaseUrl()}/cart`;
 
     const payload = {
-        pid: pid,
-        quantity: quantity,
-        addToCart: addToCart
+        pid: pid, quantity: quantity, addToCart: addToCart
     };
 
     fetch(apiEndPoint, {
-        method: 'PUT',
-        headers: {
+        method: 'PUT', headers: {
             'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(payload)
+        }, body: JSON.stringify(payload)
     })
         .then(response => {
             if (!response.ok) {
@@ -412,8 +408,7 @@ function setupCheckoutButton() {
             const apiEndPoint = `${getApiBaseUrl()}/cart-items`;
 
             fetch(apiEndPoint, {
-                method: 'PUT',
-                headers: {
+                method: 'PUT', headers: {
                     'Content-Type': 'application/json',
                 }
             })
@@ -447,9 +442,15 @@ function showEmptyCart() {
 }
 
 // Close the dialog when the user clicks on <span> (x)
-document.querySelector('.close-dialog').addEventListener('click', function () {
-    document.getElementById('checkoutDialog').style.display = 'none'
-})
+function setupDialogCloseListener() {
+    const closeDialogButton = document.querySelector('.close-dialog');
+    if (closeDialogButton) {
+        closeDialogButton.addEventListener('click', function () {
+            document.getElementById('checkoutDialog').style.display = 'none';
+        });
+    }
+}
+
 
 // Close the dialog when the user clicks anywhere outside the dialog
 window.onclick = function (event) {
