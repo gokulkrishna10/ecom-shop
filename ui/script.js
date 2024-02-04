@@ -1,11 +1,13 @@
 document.addEventListener('DOMContentLoaded', function () {
-    // Check if we're on the products page
+    // If we're on the products page
     if (window.location.pathname.endsWith('products.html')) {
+        document.body.classList.add('loading'); // Show the loader
+
         // Extract category from URL
         const urlParams = new URLSearchParams(window.location.search);
         const category = urlParams.get('category');
 
-        // Call fetchFilteredProducts() if category is present
+        // Call fetchFilteredProducts() if category is present (for redirection from category cards in home page)
         if (category) {
             fetchFilteredProducts(category);
         } else {
@@ -13,8 +15,9 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 
-    // Check if we're on the cart page
+    // If we're on the cart page
     if (window.location.pathname.endsWith('cart.html')) {
+        document.body.classList.add('loading'); // Show the loader
         fetchCartItems(); // fetch all the cart items
         setupToggleOptionsListener(); // Set up toggle options of the collapsible section on the cart page
         setupCardSelectionListeners(); // Set up the pickup and delivery card options
@@ -22,6 +25,14 @@ document.addEventListener('DOMContentLoaded', function () {
         setupDialogCloseListener() // Set up the close button in the dialog box
     }
 });
+
+function showLoader() {
+    document.getElementById('loader').style.display = 'block'
+}
+
+function hideLoader() {
+    document.getElementById('loader').style.display = 'none';
+}
 
 function getApiBaseUrl() {
     const hostname = window.location.hostname;
@@ -39,12 +50,19 @@ function fetchProducts() {
     fetch(apiEndpoint)
         .then(response => {
             if (!response.ok) {
+                document.body.classList.remove('loading'); // Hide loader if products have failed to load
                 throw new Error('Failed to get products');
             }
             return response.json();
         })
-        .then(products => displayProducts(products))
-        .catch(error => console.error('Error:', error));
+        .then(products => {
+            document.body.classList.remove('loading'); // Hide loader after products have loaded
+            displayProducts(products)
+        })
+        .catch(error => {
+            document.body.classList.remove('loading'); // Hide loader if products have failed to load
+            console.error('Error:', error)
+        });
 }
 
 function fetchFilteredProducts(category) {
@@ -58,12 +76,19 @@ function fetchFilteredProducts(category) {
     })
         .then(response => {
             if (!response.ok) {
+                document.body.classList.remove('loading'); // Hide loader if products have failed to load
                 throw new Error('Failed to get products');
             }
             return response.json();
         })
-        .then(products => displayProducts(products))
-        .catch(error => console.error('Error:', error));
+        .then(products => {
+            document.body.classList.remove('loading'); // Hide loader after products have loaded
+            displayProducts(products)
+        })
+        .catch(error => {
+            document.body.classList.remove('loading'); // Hide loader if products have failed to load
+            console.error('Error:', error)
+        });
 }
 
 
@@ -183,14 +208,19 @@ function fetchCartItems() {
     fetch(apiEndpoint)
         .then(response => {
             if (!response.ok) {
+                document.body.classList.remove('loading'); // Hide loader if cart items have failed to load
                 throw new Error('Failed to fetch cart items');
             }
             return response.json();
         })
         .then(cartItems => {
+            document.body.classList.remove('loading'); // Hide loader after cart items have loaded
             displayCartItems(cartItems);
         })
-        .catch(error => console.error('Error:', error));
+        .catch(error => {
+            document.body.classList.remove('loading'); // Hide loader if cart items have failed to load
+            console.error('Error:', error)
+        });
 }
 
 function displayCartItems(cartItems) {
