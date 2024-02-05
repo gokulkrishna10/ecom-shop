@@ -374,9 +374,14 @@ function setupToggleOptionsListener() {
     });
 }
 
+// function to set up the action listeners of pickup and delivery cards
 function setupCardSelectionListeners() {
     const pickupCard = document.getElementById('pickupCard');
     const deliveryCard = document.getElementById('deliveryCard');
+
+    // delivery card selected by default
+    deliveryCard.classList.add('selected-option')
+    handleSelectionState() // to display default selected option as Delivery in the selectedOption on top left corner of the pickup delivery header
 
     pickupCard.addEventListener('click', function () {
         toggleSelection(this, deliveryCard);
@@ -387,15 +392,21 @@ function setupCardSelectionListeners() {
     });
 }
 
+// function to toggle the pickup and deliver card selections
 function toggleSelection(selectedCard, otherCard) {
-    if (selectedCard.classList.contains('selected-option')) {
-        // Deselect if already selected
-        selectedCard.classList.remove('selected-option');
-    } else {
-        // Select this and deselect the other
-        selectedCard.classList.add('selected-option');
-        otherCard.classList.remove('selected-option');
-    }
+    selectedCard.classList.add('selected-option');
+    otherCard.classList.remove('selected-option');
+
+    // if (selectedCard.classList.contains('selected-option')) {
+    //     // Deselect the selected card and select the other one
+    //     selectedCard.classList.remove('selected-option');
+    //     otherCard.classList.add('selected-option')
+    // } else {
+    //     // Select this and deselect the other
+    //     selectedCard.classList.add('selected-option');
+    //     otherCard.classList.remove('selected-option');
+    // }
+
     // Call a function to handle the new selection state
     handleSelectionState();
 }
@@ -403,6 +414,8 @@ function toggleSelection(selectedCard, otherCard) {
 function handleSelectionState() {
     const isPickupSelected = document.getElementById('pickupCard').classList.contains('selected-option');
     const isDeliverySelected = document.getElementById('deliveryCard').classList.contains('selected-option');
+
+    // option displayed on top left corner of the pickup delivery header whose value is based on the pickup or delivery card selection
     const selectedOptionElement = document.getElementById('selectedOptionDisplay')
     const selectedOption = document.getElementById('selectedOption')
 
