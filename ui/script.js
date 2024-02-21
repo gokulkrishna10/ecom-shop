@@ -264,7 +264,7 @@ function displayCartItems(cartItems) {
         minusButton.className = 'cart-minus-button';
         minusButton.textContent = '−';
         minusButton.onclick = function () {
-            // Logic to decrease the quantity will be implemented here
+            // Logic to reduce the quantity
             updateCartAPI(item.pid, item.quantity, 0); // Remove from cart
             if (item.quantity > 1) {
                 item.quantity -= 1;
@@ -434,12 +434,94 @@ function handleSelectionState() {
     console.log('Delivery selected:', isDeliverySelected);
 }
 
+// st up the checkout button and its event listeners
 function setupCheckoutButton() {
     // Setup event listener for the checkout button
     const checkoutButton = document.querySelector('.info-card-checkout-btn');
 
+    // Get the modal
+    let modal = document.getElementById("paymentModal");
+
     if (checkoutButton) {
-        checkoutButton.addEventListener('click', function () {
+        // When the user clicks on the button, open the modal
+        checkoutButton.onclick = function () {
+            modal.style.display = "flex";
+        }
+
+        // Get the <span> element that closes the modal
+        let span = document.getElementsByClassName("close")[0];
+
+        // When the user clicks on <span> (x), close the modal
+        span.onclick = function () {
+            modal.style.display = "none";
+        }
+
+        // validate cardNumber by replacing all non-digit chars with empty string and restrict the length to 16
+        const cardNumber = document.getElementById('cardNumber')
+        cardNumber.addEventListener('input', function (e) {
+            this.value = this.value.replace(/\D/g, '').slice(0, 16)
+        })
+
+        // validate fullName by replacing anything but space, upper and lower case chars with empty string
+        const fullName = document.getElementById('fullName')
+        fullName.addEventListener('input', function (e) {
+            this.value = this.value.replace(/[^A-Za-z\s]/g, '').replace(/\s+/, ' ')
+        })
+
+        // validate cardExpiry
+        const cardExpiry = document.getElementById('cardExpiry');
+        cardExpiry.addEventListener('input', function (e) {
+            // Remove all non-digit characters
+            let value = this.value.replace(/\D/g, '')
+
+            // Add a slash after the month if the month part is complete (2 digits)
+            if (value.length > 2) {
+                value = value.substring(0, 2) + "/" + value.substring(2)
+            }
+
+            // Limit the length to 5 characters (MM/YY)
+            this.value = value.substring(0, 5)
+
+            // check if expiry date is complete
+            if (this.value.length === 5) {
+                // check for expiryDate's MM/YY format and whether they are in range
+                const regex = /^(0[1-9]|1[0-2])\/([0-9]{2})$/
+                if (!regex.test(this.value)) {
+                    alert('Expiry date must be a valid date in MM/YY format.');
+                    this.value = "";
+                    return
+                }
+
+                // get the current month and year
+                let curDate = new Date()
+                let [curMonth, curYear] = [curDate.getMonth(), curDate.getFullYear()]
+
+                // Parse the month and year from the input expiry date
+                let parts = this.value.split("/")
+
+                // Subtract 1 from input expiry month because months are 0-indexed in JavaScript Date
+                let [expiryMonth, expiryYear] = [parseInt(parts[0], 10) - 1, parseInt(parts[1], 10) + 2000]
+
+                // Check if the expiry date is in the past
+                if (expiryYear < curYear || (expiryYear === curYear && expiryMonth < curMonth)) {
+                    alert("Expiry date must be in the future.")
+                    this.value = ""
+                }
+            }
+        })
+
+        // validate cardCvv by replacing all non-digit chars with empty string and restrict the length to 3
+        const cardCvv = document.getElementById('cardCVV')
+        cardCvv.addEventListener('input', function (e) {
+            this.value = this.value.replace(/\D/g, '').slice(0, 3)
+        })
+
+
+        // Add event listener for the form submission
+        document.getElementById("paymentForm").addEventListener("submit", function (event) {
+            event.preventDefault(); // Prevent default form submission to validate first
+            // Process payment here(For future)
+
             // call removeCartItems api to mock the cart checkout functionality
             const apiEndPoint = `${getApiBaseUrl()}/cart-items`;
 
@@ -463,9 +545,13 @@ function setupCheckoutButton() {
                 .catch((error) => {
                     console.error(error);
                 });
+            // Close the modal
+            modal.style.display = "none";
+            // Show confirmation message or redirect user
         })
     }
 }
+
 
 // clear the cart items
 function showEmptyCart() {
@@ -491,7 +577,11 @@ function setupDialogCloseListener() {
 // Close the dialog when the user clicks anywhere outside the dialog
 window.onclick = function (event) {
     const dialog = document.getElementById('checkoutDialog')
+    const modal = document.getElementById('paymentModal')
     if (event.target === dialog) {
         dialog.style.display = 'none'
+    }
+    if (event.target === modal) {
+        modal.style.display = 'none'
     }
 }
