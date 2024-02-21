@@ -94,7 +94,7 @@ router.put('/cart', eComShopValidator.validateUpdateCart, routes.updateCart)
 router.get('/cart', routes.getCartItems)
 
 // remove cart items
-router.put('/cart-items', routes.removeCartItems)
+router.put('/cart-items', eComShopValidator.validatePaymentDetails, routes.removeCartItems)
 
 
 router.all('/*', function (req, res) {
