@@ -94,7 +94,7 @@ router.put('/cart', eComShopValidator.validateUpdateCart, routes.updateCart)
 router.get('/cart', routes.getCartItems)
 
 // remove cart items
-router.put('/cart-items', eComShopValidator.validatePaymentDetails, routes.removeCartItems)
+router.put('/cart-items', routes.removeCartItems)
 
 
 router.all('/*', function (req, res) {
@@ -103,7 +103,7 @@ router.all('/*', function (req, res) {
 });
 
 app.listen(app.get("port"), () => {
-    console.log("Express server : started on port : " + app.get("port"));
+    console.log("Express server started on port : " + app.get("port"));
 })
 
 module.exports = app;
