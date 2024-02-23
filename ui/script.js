@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', function () {
         fetchCartItems(); // fetch all the cart items
         setupToggleOptionsListener(); // Set up toggle options of the collapsible section on the cart page
         setupCardSelectionListeners(); // Set up the pickup and delivery card options
-        setupCheckoutButton() // Set up the checkout button
+        setupCheckoutButton()// Set up the checkout button
         setupDialogCloseListener() // Set up the close button in the dialog box
     }
 });
@@ -440,12 +440,12 @@ function setupCheckoutButton() {
     const checkoutButton = document.querySelector('.info-card-checkout-btn');
 
     // Get the modal
-    let modal = document.getElementById("paymentModal");
+    let paymentModal = document.getElementById("paymentModal");
 
     if (checkoutButton) {
         // When the user clicks on the button, open the modal
         checkoutButton.onclick = function () {
-            modal.style.display = "flex";
+            paymentModal.style.display = "flex";
         }
 
         // Get the <span> element that closes the modal
@@ -453,87 +453,15 @@ function setupCheckoutButton() {
 
         // When the user clicks on <span> (x), close the modal
         span.onclick = function () {
-            modal.style.display = "none";
+            paymentModal.style.display = "none";
         }
 
-        // get the error container in case there are any failed validations
-        const errorContainer = document.querySelector('.error-message')
-        errorContainer.textContent = ''
-        errorContainer.style.visibility = 'hidden';
-        errorContainer.style.height = '0';
-
-
-        // validate cardNumber
-        const cardNumber = document.getElementById('cardNumber')
-        // input listener for cardNumber to replace all non-digit chars with empty string and restrict the length to 16
-        cardNumber.addEventListener('input', function (e) {
-            this.value = this.value.replace(/\D/g, '').slice(0, 16)
-        })
-
-
-        // validate fullName
-        const fullName = document.getElementById('fullName')
-        // Suggest to the browser not to autofill this field
-        fullName.setAttribute('autocomplete', 'off');
-        // input listener for fullName to replace anything but space, upper and lower case chars with empty string
-        fullName.addEventListener('input', function (e) {
-            this.value = this.value.replace(/[^A-Za-z\s]/g, '').replace(/\s+/, ' ')
-        })
-
-
-        // validate cardExpiry
-        const cardExpiry = document.getElementById('cardExpiry');
-        cardExpiry.addEventListener('input', function (e) {
-            // Remove all non-digit characters
-            let value = this.value.replace(/\D/g, '')
-
-            // Add a slash after the month if the month part is complete (2 digits)
-            if (value.length > 2) {
-                value = value.substring(0, 2) + "/" + value.substring(2)
-            }
-
-            // Limit the length to 5 characters (MM/YY)
-            this.value = value.substring(0, 5)
-
-            // check if expiry date is complete
-            if (this.value.length === 5) {
-                errorContainer.textContent = '' // Clear any previous error message
-
-                // check for expiryDate's MM/YY format and whether they are in range
-                const regex = /^(0[1-9]|1[0-2])\/([0-9]{2})$/
-                if (!regex.test(this.value)) {
-                    alert('Expiry date must be a valid date in MM/YY format.')
-                    this.value = "";
-                    return
-                }
-
-                // get the current month and year
-                let curDate = new Date()
-                let [curMonth, curYear] = [curDate.getMonth(), curDate.getFullYear()]
-
-                // Parse the month and year from the input expiry date
-                let parts = this.value.split("/")
-
-                // Subtract 1 from input expiry month because months are 0-indexed in JavaScript Date
-                let [expiryMonth, expiryYear] = [parseInt(parts[0], 10) - 1, parseInt(parts[1], 10) + 2000]
-
-                // Check if the expiry date is in the past
-                if (expiryYear < curYear || (expiryYear === curYear && expiryMonth < curMonth)) {
-                    errorContainer.textContent = "Expiry Date must be in the future."
-                    errorContainer.style.visibility = 'visible';
-                    errorContainer.style.height = 'auto'; // Let it expand as needed
-                    this.value = ""
-                }
-            }
-        })
-
-
-        // validate cardCvv
-        const cardCvv = document.getElementById('cardCVV')
-        // input listener for cardCvv to replace all non-digit chars with empty string and restrict the length to 3
-        cardCvv.addEventListener('input', function (e) {
-            this.value = this.value.replace(/\D/g, '').slice(0, 3)
-        })
+        // validate payment form before submission
+        let isValid = true
+        // validate form fields before form submission. if validatePaymentForm returns false then it's a validation error and isValid will change to false
+        if (!validatePaymentForm(isValid)) {
+            return false
+        }
 
 
         // Add event listener for the form submission
@@ -541,9 +469,14 @@ function setupCheckoutButton() {
             event.preventDefault(); // Prevent default form submission to validate first
             // Process payment here(For future)
 
+            // validate form fields on form submission. Check the validity of all the form fields. Return false if there is an error
+            if (!checkFormFieldValues()) {
+                return false
+            }
+
+
             // call removeCartItems api to mock the cart checkout functionality
             const apiEndPoint = `${getApiBaseUrl()}/cart-items`;
-
             fetch(apiEndPoint, {
                 method: 'PUT', headers: {
                     'Content-Type': 'application/json',
@@ -553,7 +486,7 @@ function setupCheckoutButton() {
                     if (!response.ok) {
                         throw new Error('Network response was not ok');
                     }
-                    return response.json();
+                    return true;
                 })
                 .then(data => {
                     console.log(data);
@@ -561,7 +494,7 @@ function setupCheckoutButton() {
                     showEmptyCart()
 
                     // Close the modal
-                    modal.style.display = "none";
+                    paymentModal.style.display = "none";
 
                     // display the checkout successful dialog box
                     document.getElementById('checkoutDialog').style.display = 'block'
@@ -610,16 +543,188 @@ window.onclick = function (event) {
     }
 }
 
-function validatePaymentForm(){
+// function to validate form fields before form submission
+function validatePaymentForm(isValid) {
+    // validate cardNumber
+    const cardNumber = document.getElementById('cardNumber')
+    // input event listener for cardNumber to replace all non-digit chars with empty string and restrict the length to 16
+    cardNumber.addEventListener('input', function (e) {
+        this.value = this.value.replace(/\D/g, '').slice(0, 16)
+    })
+    // blur event listener for cardNumber
+    cardNumber.addEventListener('blur', function () {
+        if (!validateCardNumber(this.value)) {
+            isValid = false
+            return isValid
+        } else {
+            isValid = true
+        }
+    })
 
+
+    // validate fullName
+    const fullName = document.getElementById('fullName')
+    fullName.setAttribute('autocomplete', 'off');// Suggest to the browser not to autofill this field
+    // input event listener for fullName to replace anything but space, upper and lower case chars with empty string
+    fullName.addEventListener('input', function (e) {
+        this.value = this.value.replace(/[^A-Za-z\s]/g, '').replace(/\s+/, ' ')
+        this.value = this.value.trim()
+    })
+    // blur event listener for fullName
+    fullName.addEventListener('blur', function () {
+        if (!validateFullName(this.value)) {
+            isValid = false
+            return isValid
+        } else {
+            isValid = true
+        }
+    })
+
+
+    // validate cardExpiry
+    const cardExpiry = document.getElementById('cardExpiry');
+    cardExpiry.addEventListener('input', function (e) {
+        // Remove all non-digit characters
+        let value = this.value.replace(/\D/g, '')
+
+        // Add a slash after the month if the month part is complete (2 digits)
+        if (value.length > 2) {
+            value = value.substring(0, 2) + "/" + value.substring(2)
+        }
+
+        // Limit the length to 5 characters (MM/YY)
+        this.value = value.substring(0, 5)
+
+        // check if expiry date is complete
+        if (this.value.length === 5) {
+            // get the error container in case there are any failed validations
+            const errorContainer = document.getElementById('cardExpiryError')
+
+            // check if expiryDate is a valid date in MM/YY format
+            const regex = /^(0[1-9]|1[0-2])\/([0-9]{2})$/
+            if (!regex.test(this.value)) {
+                clearError(errorContainer)
+                showError(errorContainer, "Expiry date must be a valid date in MM/YY format.")
+                this.value = "";
+                return
+            }
+
+            // get the current month and year
+            let curDate = new Date()
+            let [curMonth, curYear] = [curDate.getMonth(), curDate.getFullYear()]
+
+            // Parse the month and year from the input expiry date
+            let parts = this.value.split("/")
+
+            // Subtract 1 from input expiry month because months are 0-indexed in JavaScript Date
+            let [expiryMonth, expiryYear] = [parseInt(parts[0], 10) - 1, parseInt(parts[1], 10) + 2000]
+
+            // Check if the expiry date is in the past
+            if (expiryYear < curYear || (expiryYear === curYear && expiryMonth < curMonth)) {
+                clearError(errorContainer)
+                showError(errorContainer, "Expiry Date must be in the future.")
+                this.value = ""
+            }
+        }
+    })
+    // blur event listener for cardExpiry
+    cardExpiry.addEventListener('blur', function () {
+        if (!validateCardExpiry(this.value)) {
+            isValid = false
+            return isValid
+        } else {
+            isValid = true
+        }
+    })
+
+
+    // validate cardCvv
+    const cardCvv = document.getElementById('cardCVV')
+    // input event listener for cardCvv to replace all non-digit chars with empty string and restrict the length to 3
+    cardCvv.addEventListener('input', function (e) {
+        this.value = this.value.replace(/\D/g, '').slice(0, 3)
+    })
+    // blur event listener for cardCvv
+    cardCvv.addEventListener('blur', function () {
+        if (!validateCardCVV(this.value)) {
+            isValid = false
+            return isValid
+        } else {
+            isValid = true
+        }
+    })
+    return isValid
 }
-// Listener for when the field loses focus
-// fullName.addEventListener('blur', function (e) {
-//     // Final cleanup or validation when the input field loses focus
-//     this.value = this.value.trim()// Remove any leading or trailing spaces
-//     if (!/^[A-Za-z]+(?: A-Za-z)*$/.test(this.value)) {
-//         // If the final value doesn't meet the constraints, clear it or show an error message
-//         this.value = ""
-//         errorContainer.textContent = "Please enter a valid name."
-//     }
-// })
+
+// function to validate form fields on form submission
+function checkFormFieldValues() {
+    const cardNumber = document.getElementById('cardNumber').value
+    const fullName = document.getElementById('fullName').value
+    const cardExpiry = document.getElementById('cardExpiry').value
+    const cardCvv = document.getElementById('cardCVV').value
+
+    return !(cardNumber.length !== 16 || !fullName.trim() || cardExpiry.length !== 5 || cardCvv.length !== 3);
+}
+
+// Validation for Card Number
+function validateCardNumber(value) {
+    const errorContainer = document.getElementById('cardNumberError')
+    if (value.length !== 16 || /\D/.test(value)) {
+        showError(errorContainer, 'Card number must be 16 digits.')
+        return false
+    } else {
+        clearError(errorContainer)
+        return true;
+    }
+}
+
+// Validation for Full Name
+function validateFullName(value) {
+    const errorContainer = document.getElementById('fullNameError'); // Assume you have an error container with this ID
+    value = value.trim()
+    if (!/^[A-Za-z]+(?: [A-Za-z]+)*$/.test(value)) {
+        showError(errorContainer, 'Name cannot be empty.');
+        return false
+    } else {
+        clearError(errorContainer);
+        return true;
+    }
+}
+
+// Validation for Card Expiry
+function validateCardExpiry(value) {
+    const errorContainer = document.getElementById('cardExpiryError')
+    const regex = /^(0[1-9]|1[0-2])\/([0-9]{2})$/;
+    if (!regex.test(value)) {
+        showError(errorContainer, 'Expiry Date must be in the future in MM/YY format.')
+        return false
+    } else {
+        clearError(errorContainer)
+        return true;
+    }
+}
+
+// Validation for Card CVV
+function validateCardCVV(value) {
+    const errorContainer = document.getElementById('cardCVVError')
+    if (value.length !== 3 || /\D/.test(value)) {
+        showError(errorContainer, 'Card CVV must be 3 digits.')
+        return false
+    } else {
+        clearError(errorContainer)
+        return true;
+    }
+}
+
+
+function showError(container, message) {
+    container.textContent = message;
+    container.style.visibility = 'visible';
+    container.style.height = 'auto'; // let it expand as needed
+}
+
+function clearError(container) {
+    container.textContent = '';
+    container.style.visibility = 'hidden';
+    container.style.height = '0';
+}
