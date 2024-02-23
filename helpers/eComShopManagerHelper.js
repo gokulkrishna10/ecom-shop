@@ -26,6 +26,8 @@ exports.updateCartMapper = function (req) {
     let cartMapper = {}
 
     cartMapper.pid = req.body.pid
+
+    // if addToCart flag is present in the request then 1 item has been added to the cart else remove 1 item
     cartMapper.quantity = req.body.addToCart ? (req.body.quantity || 0) + 1 : req.body.quantity - 1
 
     return cartMapper

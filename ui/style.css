@@ -35,7 +35,7 @@ header {
 }
 
 header:hover {
-    /*background: linear-gradient(135deg, grey 10%, lightblue 100%); !* Different gradient on hover *!*/
+    background: linear-gradient(155deg, lightseagreen 10%, palevioletred 100%); /* Different gradient on hover */
     cursor: pointer; /* Change cursor to indicate interactivity */
 }
 
@@ -900,8 +900,6 @@ body.loading::before {
 }
 
 
-
-
 /* The Modal (background) */
 .modal {
     display: none; /* Hidden by default */
@@ -912,7 +910,7 @@ body.loading::before {
     width: 100%; /* Full width */
     height: 100%; /* Full height */
     overflow: auto; /* Enable scroll if needed */
-    background-color: rgba(0,0,0,0.6); /* Black w/ opacity */
+    background-color: rgba(0, 0, 0, 0.6); /* Black w/ opacity */
     align-items: center;
     justify-content: center;
 }
@@ -973,6 +971,19 @@ body.loading::before {
     border: 1px solid #ccc;
     box-sizing: border-box;
 }
+
+/* error message for cardExpiry field*/
+.error-message {
+    color: red; /* Error message color */
+    font-size: 0.9em; /* Smaller font size for error text */
+    margin-top: 5px; /* Spacing between the input field and the error message */
+    height: 0; /* Take no space by default */
+    display: block; /* Ensure it takes its own line */
+    visibility: hidden; /* Make it invisible by default */
+    transition: all 0.3s ease; /* Smooth transition for showing the error */
+    overflow: hidden; /* Prevent content from expanding the container */
+}
+
 
 /* Submit Button */
 .submit-button {

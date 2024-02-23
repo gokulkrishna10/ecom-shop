@@ -131,18 +131,22 @@
                 <div class="form-group">
                     <label for="cardNumber">Card Number</label>
                     <input type="text" id="cardNumber" name="cardNumber" required>
+                    <span class="error-message" id="cardNumberError"></span> <!-- Error message container -->
                 </div>
                 <div class="form-group">
                     <label for="fullName">Name on card</label>
                     <input type="text" id="fullName" name="fullName" required>
+                    <span class="error-message" id="fullNameError"></span> <!-- Error message container -->
                 </div>
                 <div class="form-group">
                     <label for="cardExpiry">Expiry Date</label>
                     <input type="text" id="cardExpiry" name="cardExpiry" placeholder="MM/YY" required>
+                    <span class="error-message" id="cardExpiryError"></span> <!-- Error message container -->
                 </div>
                 <div class="form-group">
                     <label for="cardCVV">CVV</label>
                     <input type="text" id="cardCVV" name="cardCVV" required>
+                    <span class="error-message" id="cardCVVError"></span> <!-- Error message container -->
                 </div>
                 <button type="submit" class="submit-button">Confirm Payment</button>
             </form>
