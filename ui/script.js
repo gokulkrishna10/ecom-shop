@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', function () {
         fetchCartItems(); // fetch all the cart items
         setupToggleOptionsListener(); // Set up toggle options of the collapsible section on the cart page
         setupCardSelectionListeners(); // Set up the pickup and delivery card options
-        setupCheckoutButton()// Set up the checkout button
+        setupCheckoutButton() // Set up the checkout button
         setupDialogCloseListener() // Set up the close button in the dialog box
     }
 });
