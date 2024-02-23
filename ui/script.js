@@ -486,7 +486,7 @@ function setupCheckoutButton() {
                     if (!response.ok) {
                         throw new Error('Network response was not ok');
                     }
-                    return true;
+                    return response.json();
                 })
                 .then(data => {
                     console.log(data);
