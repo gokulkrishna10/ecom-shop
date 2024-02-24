@@ -904,7 +904,7 @@ body.loading::before {
 .modal {
     display: none; /* Hidden by default */
     position: fixed; /* Stay in place */
-    z-index: 1; /* Sit on top */
+    z-index: 1050; /* Higher than other content */
     left: 0;
     top: 0;
     width: 100%; /* Full width */
@@ -918,7 +918,7 @@ body.loading::before {
 /* Modal Content */
 .modal-content {
     background-color: #fefefe;
-    padding: 40px;
+    padding: 20px;
     border: 1px solid #888;
     width: 60%; /* Auto width based on content */
     max-width: 600px; /* Maximum width */
@@ -1000,5 +1000,61 @@ body.loading::before {
 
 .submit-button:hover {
     background-color: #0056b3;
+}
+
+
+/* Payment Success Modal Styles */
+.success-modal-content {
+    background-color: #e8f4ea; /* Light green background for success */
+    color: #34a853; /* Green text color */
+    border: 1px solid #34a853; /* Green border */
+    animation: modalIn 0.4s ease-out forwards; /* Animation for modal entry */
+    transform: translateY(-50px); /* Start position for animation */
+    opacity: 0; /* Start opacity for animation */
+    border-radius: 10px; /* Rounded corners for modal */
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2); /* Shadow for depth */
+}
+
+@keyframes modalIn {
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.success-icon {
+    color: #34a853; /* Green icon color */
+    font-size: 48px; /* Icon size */
+    margin-bottom: 20px; /* Space below the icon */
+}
+
+.success-close {
+    color: #34a853; /* Green close button */
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 25px;
+}
+
+.success-ok-button {
+    background-color: #34a853; /* Green OK button */
+    color: white; /* White text */
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 20px; /* Space above the button */
+    transition: background-color 0.3s; /* Smooth background color transition */
+    z-index: 1051; /* Ensure the button is clickable */
+}
+
+.success-ok-button:hover {
+    background-color: #2c7a46; /* Darker green on hover */
+}
+
+.success-modal-body {
+    text-align: center; /* Center the content */
+    padding: 40px; /* Padding around the content */
 }
 
