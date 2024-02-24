@@ -493,11 +493,11 @@ function setupCheckoutButton() {
                     // show empty cart to mock cart checkout functionality
                     showEmptyCart()
 
-                    // Close the modal
-                    paymentModal.style.display = "none";
+                    // show the paymentSuccessful modal
+                    document.getElementById('paymentSuccessModal').style.display = 'flex'
 
-                    // display the checkout successful dialog box
-                    document.getElementById('checkoutDialog').style.display = 'block'
+                    // // Close the modal
+                    paymentModal.style.display = "none";
                 })
                 .catch((error) => {
                     console.error(error);
@@ -505,6 +505,20 @@ function setupCheckoutButton() {
         })
     }
 }
+
+
+// Close the success modal when the user clicks on 'OK' or the close icon
+document.querySelector('.success-close').addEventListener('click', function () {
+    document.getElementById('paymentSuccessModal').style.display = 'none';
+    // display the checkout successful dialog box
+    document.getElementById('checkoutDialog').style.display = 'block'
+});
+
+document.querySelector('.success-ok-button').addEventListener('click', function () {
+    document.getElementById('paymentSuccessModal').style.display = 'none';
+    // display the checkout successful dialog box
+    document.getElementById('checkoutDialog').style.display = 'block'
+});
 
 
 // clear the cart items
